@@ -11,4 +11,3 @@ Exit code: 0
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 52 passed, 1 warning in 71.26s (0:01:11)
-

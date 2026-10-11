@@ -29,4 +29,3 @@ environment exit=0
     "mypy": "1.20.2"
   }
 }
-
