@@ -146,10 +146,12 @@ def save_file(out: Path, content: bytes, executable: bool = False) -> None:
         os.fchmod(target.fileno(), 0o755 if executable else 0o644)
 
 
-def save_archive(out: Path, content: bytes) -> None:
+def save_archive(
+    out: Path, content: bytes, max_bytes: int = 16 * 1024 * 1024, max_entries: int = 1000
+) -> None:
     if out.exists() or out.is_symlink():
         raise ValueError(f"Destination exists: {out}")
-    files, directories = decode(content)
+    files, directories = decode(content, max_bytes, max_entries)
     with tempfile.TemporaryDirectory(prefix=".sharey-", dir=out.parent) as temporary:
         stage = Path(temporary) / "content"
         stage.mkdir()

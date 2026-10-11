@@ -1,5 +1,8 @@
 import json
 
+import httpx
+import pytest
+
 
 def test_cli_reads_real_http_project_and_lists_objects(service, cli, tmp_path):
     result = cli(service, tmp_path, "overview")
@@ -101,3 +104,37 @@ def test_single_file_download_restores_selected_execution_mark(service, cli, tmp
     assert result.returncode == 0, result.stderr
     assert (work / "received.sh").read_bytes() == b"#!/bin/sh\nprintf hello\n"
     assert (work / "received.sh").stat().st_mode & 0o111
+
+
+@pytest.mark.parametrize("case", ["implicit-directories", "configured-size"])
+def test_cli_downloads_every_accepted_snapshot(service, cli, tmp_path, case):
+    from test_nodes import node_bundle
+
+    if case == "implicit-directories":
+        files = {f"files/d{number}/f.txt": str(number).encode() for number in range(500)}
+    else:
+        service.stop()
+        config = json.loads(service.config.read_text())
+        config["limits"] = {
+            "max_upload_bytes": 32 * 1024 * 1024,
+            "max_unpacked_bytes": 32 * 1024 * 1024,
+        }
+        service.config.write_text(json.dumps(config))
+        service.start()
+        files = {"files/large.bin": b"x" * (17 * 1024 * 1024)}
+    response = httpx.post(
+        service.url + "/projects/demo/nodes",
+        headers={
+            "Authorization": "Bearer demo-secret",
+            "Content-Type": "application/zip",
+            "Idempotency-Key": "accepted-snapshot",
+        },
+        content=node_bundle(files=files),
+        timeout=60,
+    )
+    assert response.status_code == 201, response.text
+    result = cli(service, tmp_path, "get", "node", response.json()["id"], "--out", "received")
+    assert result.returncode == 0, result.stderr
+    for path, content in files.items():
+        assert (tmp_path / "received" / path).read_bytes() == content
+    assert (tmp_path / "received/memory.md").read_bytes() == b"# Goal\nCompare measurements.\n"

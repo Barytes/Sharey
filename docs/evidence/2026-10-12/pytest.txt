@@ -1,0 +1,14 @@
+Command: UV_CACHE_DIR=/private/tmp/sharey-uv-cache uv run --frozen --no-editable pytest -q
+Execution date: 2026-10-12 Asia/Shanghai
+Installed noneditable sharey 0.1.0; PYTHONPATH unset.
+Exit code: 0
+
+....................................................                     [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+52 passed, 1 warning in 71.26s (0:01:11)
+

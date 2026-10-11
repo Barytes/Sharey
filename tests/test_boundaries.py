@@ -88,6 +88,31 @@ def test_incomplete_invalid_and_conflicting_publications_are_rejected(api):
 
 
 @pytest.mark.parametrize(
+    "compression,corrupt_offset",
+    [(zipfile.ZIP_DEFLATED, 0), (zipfile.ZIP_BZIP2, 0), (zipfile.ZIP_LZMA, 4)],
+)
+def test_corrupt_compressed_upload_returns_validation_json_without_publication(
+    api, compression, corrupt_offset
+):
+    import struct
+
+    output = io.BytesIO()
+    with zipfile.ZipFile(output, "w", compression=compression) as archive:
+        archive.writestr("metadata.json", b"{}")
+        archive.writestr("memory.md", b"Memory")
+    damaged = bytearray(output.getvalue())
+    name_size, extra_size = struct.unpack_from("<HH", damaged, 26)
+    damaged[30 + name_size + extra_size + corrupt_offset] = (
+        0x07 if compression == zipfile.ZIP_DEFLATED else 0xFF
+    )  # Invalid DEFLATE block, BZIP2 header, or LZMA properties.
+    response = publish(api, bytes(damaged), key="corrupt-deflate")
+    assert response.status_code == 422, response.text
+    assert response.headers["content-type"].startswith("application/json")
+    assert response.json() == {"detail": "Invalid publication archive"}
+    assert api.get("/projects/demo/nodes", headers=AUTH).json() == []
+
+
+@pytest.mark.parametrize(
     "limit,content",
     [
         ({"max_upload_bytes": 50}, node_bundle()),

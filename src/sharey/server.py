@@ -1,6 +1,8 @@
+import io
 import json
 import re
 import secrets
+import zipfile
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -126,9 +128,19 @@ def create_app(data_dir: Path, config: dict) -> FastAPI:
     def show_skill(project: str, oid: str):
         return store.describe(project, "skills", oid)
 
+    def archive_response(project: str, kind: str, oid: str) -> Response:
+        content = store.archive(project, kind, oid)
+        with zipfile.ZipFile(io.BytesIO(content)) as archive:
+            entries = archive.infolist()
+            headers = {
+                "X-Sharey-Archive-Unpacked-Bytes": str(sum(entry.file_size for entry in entries)),
+                "X-Sharey-Archive-Entries": str(len(entries)),
+            }
+        return Response(content, media_type="application/zip", headers=headers)
+
     @router.get("/skills/{oid}/archive")
     def get_skill_archive(project: str, oid: str):
-        return Response(store.archive(project, "skills", oid), media_type="application/zip")
+        return archive_response(project, "skills", oid)
 
     @router.get("/sources/{oid}")
     def show_source(project: str, oid: str):
@@ -162,7 +174,7 @@ def create_app(data_dir: Path, config: dict) -> FastAPI:
 
     @router.get("/nodes/{oid}/archive")
     def get_node_archive(project: str, oid: str):
-        return Response(store.archive(project, "nodes", oid), media_type="application/zip")
+        return archive_response(project, "nodes", oid)
 
     app.include_router(router)
     return app

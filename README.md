@@ -11,14 +11,14 @@
 ```sh
 cd /Users/beiyanliu/Desktop/sharey
 export UV_CACHE_DIR=/private/tmp/sharey-uv-cache
-uv sync --frozen --no-editable --python 3.12
+uv sync --frozen --no-editable --reinstall-package sharey --python 3.12
 uv run --frozen --no-editable sharey serve \
   --config examples/server.json --data-dir .sharey-data --port 8765
 ```
 
 默认监听 `127.0.0.1`。本地示例配置的项目为 `pilot`，凭证为 `local-demo-token`；部署给团队时复制配置、设置项目目标和团队凭证，并用 `--host` 指定监听地址。项目配置和凭证保存在服务端配置文件，研究内容保存在持久目录中的独立 bare Git 仓库。一个数据目录由一个服务独占；重启时使用相同配置和数据目录。
 
-`--no-editable` 使用实际安装包，也避免当前 macOS 环境中隐藏 `.pth` 文件导致 editable 导入失败。修改代码后重新执行 `uv sync --no-editable` 再运行。
+`--no-editable` 使用实际安装包，也避免当前 macOS 环境中隐藏 `.pth` 文件导致 editable 导入失败。修改代码后执行 `uv sync --frozen --no-editable --reinstall-package sharey` 重建安装包再运行。
 
 ## 使用
 
@@ -72,7 +72,7 @@ Skill 指导 Agent 明确共享范围、编译可接续记忆、查询和引用�
 ```sh
 cd /Users/beiyanliu/Desktop/sharey
 export UV_CACHE_DIR=/private/tmp/sharey-uv-cache
-uv sync --frozen --no-editable --python 3.12
+uv sync --frozen --no-editable --reinstall-package sharey --python 3.12
 uv run --frozen --no-editable pytest -q
 uv run --frozen --no-editable ruff check src tests scripts examples/pilot-latency/skill/scripts
 uv run --frozen --no-editable ruff format --check src tests scripts examples/pilot-latency/skill/scripts

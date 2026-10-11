@@ -115,8 +115,8 @@ tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/p
 >           yield server.start()
                   ^^^^^^^^^^^^^^
 
-tests/conftest.py:76: 
-_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/conftest.py:76:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
 self = <conftest.LiveService object at 0x10b69c350>, extra_env = None
 
@@ -241,7 +241,7 @@ tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/p
 E       AssertionError: usage: sharey [-h] [--url URL] [--project PROJECT] [--token TOKEN]
 E                       {serve,overview,list} ...
 E         sharey: error: argument command: invalid choice: 'publish' (choose from serve, overview, list)
-E         
+E
 E       assert 2 == 0
 E        +  where 2 = CompletedProcess(args=['/Users/beiyanliu/Desktop/sharey/.venv/bin/python', '-m', 'sharey.cli', 'publish', 'node', '--m...,overview,list} ...\nsharey: error: argument command: invalid choice: 'publish' (choose from serve, overview, list)\n").returncode
 
@@ -286,7 +286,7 @@ tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/p
 >       assert result.returncode == 0, result.stderr
 E       AssertionError: usage: sharey publish [-h] {node} ...
 E         sharey publish: error: argument kind: invalid choice: 'source' (choose from node)
-E         
+E
 E       assert 2 == 0
 E        +  where 2 = CompletedProcess(args=['/Users/beiyanliu/Desktop/sharey/.venv/bin/python', '-m', 'sharey.cli', 'publish', 'source', '-...: sharey publish [-h] {node} ...\nsharey publish: error: argument kind: invalid choice: 'source' (choose from node)\n").returncode
 
@@ -342,7 +342,7 @@ tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/p
 >       assert result.returncode == 0, result.stderr
 E       AssertionError: usage: sharey publish [-h] {node,source} ...
 E         sharey publish: error: argument kind: invalid choice: 'skill' (choose from node, source)
-E         
+E
 E       assert 2 == 0
 E        +  where 2 = CompletedProcess(args=['/Users/beiyanliu/Desktop/sharey/.venv/bin/python', '-m', 'sharey.cli', 'publish', 'skill', '--...sh [-h] {node,source} ...\nsharey publish: error: argument kind: invalid choice: 'skill' (choose from node, source)\n").returncode
 
@@ -384,7 +384,7 @@ tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/p
         overview = api.get('/projects/demo/overview', headers=AUTH).json()
 >       assert {node['id']: node['parents'] for node in overview['nodes']} == expected
 E       AssertionError: assert {'3d15a90f370...e9055c7a': []} == {'3d15a90f370...355cd2cebc0']}
-E         
+E
 E         Omitting 1 identical items, use -vv to show
 E         Differing items:
 E         {'8c0386057f060c36af106899895779aa33ce19ca': []} != {'8c0386057f060c36af106899895779aa33ce19ca': ['3d15a90f370b711bc3168e05eeba78d7ade78745']}
@@ -1388,7 +1388,7 @@ tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/p
         )
 >       assert completed.returncode == 0, completed.stderr + completed.stdout
 E       AssertionError: /Users/beiyanliu/Desktop/sharey/.venv/bin/python: can't open file '/Users/beiyanliu/Desktop/sharey/scripts/run_acceptance.py': [Errno 2] No such file or directory
-E         
+E
 E       assert 2 == 0
 E        +  where 2 = CompletedProcess(args=['/Users/beiyanliu/Desktop/sharey/.venv/bin/python', '/Users/beiyanliu/Desktop/sharey/scripts/ru...n: can't open file '/Users/beiyanliu/Desktop/sharey/scripts/run_acceptance.py': [Errno 2] No such file or directory\n").returncode
 
@@ -1494,7 +1494,7 @@ tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/p
 >       assert json.loads(result.stdout)['provenance'][0]['git'] == {
             'commit': git('rev-parse', 'HEAD').decode().strip(), 'path': 'code/clean.py', 'state': 'clean'}
 E       AssertionError: assert {'commit': '3...: 'untracked'} == {'commit': '3...ate': 'clean'}
-E         
+E
 E         Omitting 2 identical items, use -vv to show
 E         Differing items:
 E         {'state': 'untracked'} != {'state': 'clean'}
@@ -1561,3 +1561,657 @@ FAILED tests/test_boundaries.py::test_case_or_unicode_aliases_cannot_overwrite_d
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 1 passed, 1 warning in 0.09s
+
+2026-10-11T16:24:32.063851+00:00 RED ['tests/test_cli.py::test_cli_downloads_every_accepted_snapshot'] exit=1
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_______ test_cli_downloads_every_accepted_snapshot[implicit-directories] _______
+
+service = <conftest.LiveService object at 0x107782b10>
+cli = <function cli.<locals>.run at 0x10788e0c0>
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-53/test_cli_downloads_every_accep0')
+case = 'implicit-directories'
+
+    @pytest.mark.parametrize("case", ["implicit-directories", "configured-size"])
+    def test_cli_downloads_every_accepted_snapshot(service, cli, tmp_path, case):
+        from test_nodes import node_bundle
+
+        if case == "implicit-directories":
+            files = {f"files/d{number}/f.txt": str(number).encode() for number in range(500)}
+        else:
+            service.stop()
+            config = json.loads(service.config.read_text())
+            config["limits"] = {"max_unpacked_bytes": 32 * 1024 * 1024}
+            service.config.write_text(json.dumps(config))
+            service.start()
+            files = {"files/large.bin": b"x" * (17 * 1024 * 1024)}
+        response = httpx.post(
+            service.url + "/projects/demo/nodes",
+            headers={
+                "Authorization": "Bearer demo-secret",
+                "Content-Type": "application/zip",
+                "Idempotency-Key": "accepted-snapshot",
+            },
+            content=node_bundle(files=files),
+            timeout=60,
+        )
+        assert response.status_code == 201, response.text
+        result = cli(service, tmp_path, "get", "node", response.json()["id"], "--out", "received")
+>       assert result.returncode == 0, result.stderr
+E       AssertionError: sharey: Archive entry limit exceeded
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/Users/beiyanliu/Desktop/sharey/.venv/bin/python', '-m', 'sharey.cli', 'get', 'node', '7e4664c...2c99c1cb0c18bd0136ae1', '--out', 'received'], returncode=1, stdout='', stderr='sharey: Archive entry limit exceeded\n').returncode
+
+tests/test_cli.py:134: AssertionError
+_________ test_cli_downloads_every_accepted_snapshot[configured-size] __________
+
+service = <conftest.LiveService object at 0x1078232c0>
+cli = <function cli.<locals>.run at 0x107937a60>
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-53/test_cli_downloads_every_accep1')
+case = 'configured-size'
+
+    @pytest.mark.parametrize("case", ["implicit-directories", "configured-size"])
+    def test_cli_downloads_every_accepted_snapshot(service, cli, tmp_path, case):
+        from test_nodes import node_bundle
+
+        if case == "implicit-directories":
+            files = {f"files/d{number}/f.txt": str(number).encode() for number in range(500)}
+        else:
+            service.stop()
+            config = json.loads(service.config.read_text())
+            config["limits"] = {"max_unpacked_bytes": 32 * 1024 * 1024}
+            service.config.write_text(json.dumps(config))
+            service.start()
+            files = {"files/large.bin": b"x" * (17 * 1024 * 1024)}
+        response = httpx.post(
+            service.url + "/projects/demo/nodes",
+            headers={
+                "Authorization": "Bearer demo-secret",
+                "Content-Type": "application/zip",
+                "Idempotency-Key": "accepted-snapshot",
+            },
+            content=node_bundle(files=files),
+            timeout=60,
+        )
+>       assert response.status_code == 201, response.text
+E       AssertionError: {"detail":"Upload byte limit exceeded"}
+E       assert 413 == 201
+E        +  where 413 = <Response [413 Request Entity Too Large]>.status_code
+
+tests/test_cli.py:132: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_cli.py::test_cli_downloads_every_accepted_snapshot[implicit-directories]
+FAILED tests/test_cli.py::test_cli_downloads_every_accepted_snapshot[configured-size]
+2 failed, 1 warning in 25.35s
+
+2026-10-11T16:24:52.242723+00:00 RED ['tests/test_cli.py::test_cli_downloads_every_accepted_snapshot[configured-size]'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________ test_cli_downloads_every_accepted_snapshot[configured-size] __________
+
+service = <conftest.LiveService object at 0x10795cb00>
+cli = <function cli.<locals>.run at 0x107aa20c0>
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-54/test_cli_downloads_every_accep0')
+case = 'configured-size'
+
+    @pytest.mark.parametrize("case", ["implicit-directories", "configured-size"])
+    def test_cli_downloads_every_accepted_snapshot(service, cli, tmp_path, case):
+        from test_nodes import node_bundle
+
+        if case == "implicit-directories":
+            files = {f"files/d{number}/f.txt": str(number).encode() for number in range(500)}
+        else:
+            service.stop()
+            config = json.loads(service.config.read_text())
+            config["limits"] = {
+                "max_upload_bytes": 32 * 1024 * 1024,
+                "max_unpacked_bytes": 32 * 1024 * 1024,
+            }
+            service.config.write_text(json.dumps(config))
+            service.start()
+            files = {"files/large.bin": b"x" * (17 * 1024 * 1024)}
+        response = httpx.post(
+            service.url + "/projects/demo/nodes",
+            headers={
+                "Authorization": "Bearer demo-secret",
+                "Content-Type": "application/zip",
+                "Idempotency-Key": "accepted-snapshot",
+            },
+            content=node_bundle(files=files),
+            timeout=60,
+        )
+        assert response.status_code == 201, response.text
+        result = cli(service, tmp_path, "get", "node", response.json()["id"], "--out", "received")
+>       assert result.returncode == 0, result.stderr
+E       AssertionError: sharey: Unpacked byte limit exceeded
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/Users/beiyanliu/Desktop/sharey/.venv/bin/python', '-m', 'sharey.cli', 'get', 'node', '856fe2f...dd7db8044c0e3ca7b7b63', '--out', 'received'], returncode=1, stdout='', stderr='sharey: Unpacked byte limit exceeded\n').returncode
+
+tests/test_cli.py:137: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_cli.py::test_cli_downloads_every_accepted_snapshot[configured-size]
+1 failed, 1 warning in 1.51s
+
+2026-10-11T16:25:51.325725+00:00 GREEN ['tests/test_cli.py::test_cli_downloads_every_accepted_snapshot', 'tests/test_boundaries.py::test_cli_validates_download_archive_before_writing'] exit=0
+.....                                                                    [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+5 passed, 1 warning in 28.36s
+
+2026-10-11T16:26:11.345399+00:00 RED ['tests/test_boundaries.py::test_corrupt_deflate_upload_returns_validation_json_without_publication'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___ test_corrupt_deflate_upload_returns_validation_json_without_publication ____
+
+api = <starlette.testclient.TestClient object at 0x10bacb830>
+
+    def test_corrupt_deflate_upload_returns_validation_json_without_publication(api):
+        import struct
+
+        output = io.BytesIO()
+        with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+            archive.writestr("metadata.json", b"{}")
+            archive.writestr("memory.md", b"Memory")
+        damaged = bytearray(output.getvalue())
+        name_size, extra_size = struct.unpack_from("<HH", damaged, 26)
+        damaged[30 + name_size + extra_size] = 0x07  # DEFLATE BTYPE=3 is reserved/invalid.
+>       response = publish(api, bytes(damaged), key="corrupt-deflate")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_boundaries.py:100:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests/test_nodes.py:39: in publish
+    return api.post(
+.venv/lib/python3.12/site-packages/httpx/_client.py:1144: in post
+    return self.request(
+.venv/lib/python3.12/site-packages/starlette/testclient.py:463: in request
+    return super().request(
+.venv/lib/python3.12/site-packages/httpx/_client.py:825: in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/httpx/_client.py:914: in send
+    response = self._send_handling_auth(
+.venv/lib/python3.12/site-packages/httpx/_client.py:942: in _send_handling_auth
+    response = self._send_handling_redirects(
+.venv/lib/python3.12/site-packages/httpx/_client.py:979: in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/httpx/_client.py:1014: in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/starlette/testclient.py:360: in handle_request
+    raise exc
+.venv/lib/python3.12/site-packages/starlette/testclient.py:357: in handle_request
+    portal.call(self.app, scope, receive, send)
+.venv/lib/python3.12/site-packages/anyio/from_thread.py:340: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+.venv/lib/python3.12/site-packages/anyio/from_thread.py:265: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/fastapi/applications.py:1216: in __call__
+    await super().__call__(scope, receive, send)
+.venv/lib/python3.12/site-packages/starlette/applications.py:96: in __call__
+    await self.middleware_stack(scope, receive, send)
+.venv/lib/python3.12/site-packages/starlette/middleware/errors.py:186: in __call__
+    raise exc
+.venv/lib/python3.12/site-packages/starlette/middleware/errors.py:164: in __call__
+    await self.app(scope, receive, _send)
+.venv/lib/python3.12/site-packages/fastapi/telemetry/_asgi.py:151: in __call__
+    await self.app(scope, receive, send)
+.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py:63: in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+.venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+.venv/lib/python3.12/site-packages/starlette/routing.py:676: in __call__
+    await self.middleware_stack(scope, receive, send)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:2786: in app
+    await route.handle(scope, receive, send)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:1817: in handle
+    await self.original_router.handle(scope, receive, send)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:2869: in handle
+    await included_router._handle_selected(scope, receive, send)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:1843: in _handle_selected
+    await original_route.handle(scope, receive, send)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:1308: in handle
+    await effective_context.app(scope, receive, send)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:165: in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:151: in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/fastapi/routing.py:727: in app
+    raw_response = await run_endpoint_function(
+.venv/lib/python3.12/site-packages/fastapi/routing.py:360: in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/sharey/server.py:116: in publish_object
+    files, directories = await run_in_threadpool(
+.venv/lib/python3.12/site-packages/starlette/concurrency.py:34: in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/anyio/to_thread.py:65: in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py:2706: in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py:1100: in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+src/sharey/archives.py:82: in decode
+    data = source.read(max_bytes + 1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/zipfile/__init__.py:1008: in read
+    data = self._read1(n)
+           ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <zipfile.ZipExtFile [closed]>, n = 16777217
+
+    def _read1(self, n):
+        # Read up to n compressed bytes with at most one read() system call,
+        # decrypt and decompress them.
+        if self._eof or n <= 0:
+            return b''
+
+        # Read from file.
+        if self._compress_type == ZIP_DEFLATED:
+            ## Handle unconsumed data.
+            data = self._decompressor.unconsumed_tail
+            if n > len(data):
+                data += self._read2(n - len(data))
+        else:
+            data = self._read2(n)
+
+        if self._compress_type == ZIP_STORED:
+            self._eof = self._compress_left <= 0
+        elif self._compress_type == ZIP_DEFLATED:
+            n = max(n, self.MIN_READ_SIZE)
+>           data = self._decompressor.decompress(data, n)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           zlib.error: Error -3 while decompressing data: invalid block type
+
+../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/zipfile/__init__.py:1084: error
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_boundaries.py::test_corrupt_deflate_upload_returns_validation_json_without_publication
+1 failed, 1 warning in 0.32s
+
+2026-10-11T16:26:32.048463+00:00 GREEN ['tests/test_boundaries.py::test_corrupt_deflate_upload_returns_validation_json_without_publication'] exit=0
+.                                                                        [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 0.07s
+
+2026-10-11T16:27:50.697383+00:00 RED ['tests/test_boundaries.py::test_corrupt_compressed_upload_returns_validation_json_without_publication'] exit=1
+.FF                                                                      [100%]
+=================================== FAILURES ===================================
+_ test_corrupt_compressed_upload_returns_validation_json_without_publication[12-0] _
+
+api = <starlette.testclient.TestClient object at 0x109e5f590>, compression = 12
+corrupt_offset = 0
+
+    @pytest.mark.parametrize(
+        "compression,corrupt_offset",
+        [(zipfile.ZIP_DEFLATED, 0), (zipfile.ZIP_BZIP2, 0), (zipfile.ZIP_LZMA, 4)],
+    )
+    def test_corrupt_compressed_upload_returns_validation_json_without_publication(
+        api, compression, corrupt_offset
+    ):
+        import struct
+
+        output = io.BytesIO()
+        with zipfile.ZipFile(output, "w", compression=compression) as archive:
+            archive.writestr("metadata.json", b"{}")
+            archive.writestr("memory.md", b"Memory")
+        damaged = bytearray(output.getvalue())
+        name_size, extra_size = struct.unpack_from("<HH", damaged, 26)
+        damaged[30 + name_size + extra_size + corrupt_offset] = (
+            0x07 if compression == zipfile.ZIP_DEFLATED else 0xFF
+        )  # Invalid DEFLATE block, BZIP2 header, or LZMA properties.
+>       response = publish(api, bytes(damaged), key="corrupt-deflate")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_boundaries.py:108:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests/test_nodes.py:39: in publish
+    return api.post(
+.venv/lib/python3.12/site-packages/httpx/_client.py:1144: in post
+    return self.request(
+.venv/lib/python3.12/site-packages/starlette/testclient.py:463: in request
+    return super().request(
+.venv/lib/python3.12/site-packages/httpx/_client.py:825: in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/httpx/_client.py:914: in send
+    response = self._send_handling_auth(
+.venv/lib/python3.12/site-packages/httpx/_client.py:942: in _send_handling_auth
+    response = self._send_handling_redirects(
+.venv/lib/python3.12/site-packages/httpx/_client.py:979: in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/httpx/_client.py:1014: in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/starlette/testclient.py:360: in handle_request
+    raise exc
+.venv/lib/python3.12/site-packages/starlette/testclient.py:357: in handle_request
+    portal.call(self.app, scope, receive, send)
+.venv/lib/python3.12/site-packages/anyio/from_thread.py:340: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+.venv/lib/python3.12/site-packages/anyio/from_thread.py:265: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/fastapi/applications.py:1216: in __call__
+    await super().__call__(scope, receive, send)
+.venv/lib/python3.12/site-packages/starlette/applications.py:96: in __call__
+    await self.middleware_stack(scope, receive, send)
+.venv/lib/python3.12/site-packages/starlette/middleware/errors.py:186: in __call__
+    raise exc
+.venv/lib/python3.12/site-packages/starlette/middleware/errors.py:164: in __call__
+    await self.app(scope, receive, _send)
+.venv/lib/python3.12/site-packages/fastapi/telemetry/_asgi.py:151: in __call__
+    await self.app(scope, receive, send)
+.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py:63: in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+.venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+.venv/lib/python3.12/site-packages/starlette/routing.py:676: in __call__
+    await self.middleware_stack(scope, receive, send)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:2786: in app
+    await route.handle(scope, receive, send)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:1817: in handle
+    await self.original_router.handle(scope, receive, send)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:2869: in handle
+    await included_router._handle_selected(scope, receive, send)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:1843: in _handle_selected
+    await original_route.handle(scope, receive, send)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:1308: in handle
+    await effective_context.app(scope, receive, send)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:165: in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:151: in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/fastapi/routing.py:727: in app
+    raw_response = await run_endpoint_function(
+.venv/lib/python3.12/site-packages/fastapi/routing.py:360: in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/sharey/server.py:116: in publish_object
+    files, directories = await run_in_threadpool(
+.venv/lib/python3.12/site-packages/starlette/concurrency.py:34: in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/anyio/to_thread.py:65: in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py:2706: in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py:1100: in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+src/sharey/archives.py:83: in decode
+    data = source.read(max_bytes + 1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/zipfile/__init__.py:1008: in read
+    data = self._read1(n)
+           ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <zipfile.ZipExtFile [closed]>, n = 16777217
+
+    def _read1(self, n):
+        # Read up to n compressed bytes with at most one read() system call,
+        # decrypt and decompress them.
+        if self._eof or n <= 0:
+            return b''
+
+        # Read from file.
+        if self._compress_type == ZIP_DEFLATED:
+            ## Handle unconsumed data.
+            data = self._decompressor.unconsumed_tail
+            if n > len(data):
+                data += self._read2(n - len(data))
+        else:
+            data = self._read2(n)
+
+        if self._compress_type == ZIP_STORED:
+            self._eof = self._compress_left <= 0
+        elif self._compress_type == ZIP_DEFLATED:
+            n = max(n, self.MIN_READ_SIZE)
+            data = self._decompressor.decompress(data, n)
+            self._eof = (self._decompressor.eof or
+                         self._compress_left <= 0 and
+                         not self._decompressor.unconsumed_tail)
+            if self._eof:
+                data += self._decompressor.flush()
+        else:
+>           data = self._decompressor.decompress(data)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           OSError: Invalid data stream
+
+../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/zipfile/__init__.py:1091: OSError
+_ test_corrupt_compressed_upload_returns_validation_json_without_publication[14-4] _
+
+api = <starlette.testclient.TestClient object at 0x109e83da0>, compression = 14
+corrupt_offset = 4
+
+    @pytest.mark.parametrize(
+        "compression,corrupt_offset",
+        [(zipfile.ZIP_DEFLATED, 0), (zipfile.ZIP_BZIP2, 0), (zipfile.ZIP_LZMA, 4)],
+    )
+    def test_corrupt_compressed_upload_returns_validation_json_without_publication(
+        api, compression, corrupt_offset
+    ):
+        import struct
+
+        output = io.BytesIO()
+        with zipfile.ZipFile(output, "w", compression=compression) as archive:
+            archive.writestr("metadata.json", b"{}")
+            archive.writestr("memory.md", b"Memory")
+        damaged = bytearray(output.getvalue())
+        name_size, extra_size = struct.unpack_from("<HH", damaged, 26)
+        damaged[30 + name_size + extra_size + corrupt_offset] = (
+            0x07 if compression == zipfile.ZIP_DEFLATED else 0xFF
+        )  # Invalid DEFLATE block, BZIP2 header, or LZMA properties.
+>       response = publish(api, bytes(damaged), key="corrupt-deflate")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_boundaries.py:108:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests/test_nodes.py:39: in publish
+    return api.post(
+.venv/lib/python3.12/site-packages/httpx/_client.py:1144: in post
+    return self.request(
+.venv/lib/python3.12/site-packages/starlette/testclient.py:463: in request
+    return super().request(
+.venv/lib/python3.12/site-packages/httpx/_client.py:825: in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/httpx/_client.py:914: in send
+    response = self._send_handling_auth(
+.venv/lib/python3.12/site-packages/httpx/_client.py:942: in _send_handling_auth
+    response = self._send_handling_redirects(
+.venv/lib/python3.12/site-packages/httpx/_client.py:979: in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/httpx/_client.py:1014: in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/starlette/testclient.py:360: in handle_request
+    raise exc
+.venv/lib/python3.12/site-packages/starlette/testclient.py:357: in handle_request
+    portal.call(self.app, scope, receive, send)
+.venv/lib/python3.12/site-packages/anyio/from_thread.py:340: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py:456: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+.venv/lib/python3.12/site-packages/anyio/from_thread.py:265: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/fastapi/applications.py:1216: in __call__
+    await super().__call__(scope, receive, send)
+.venv/lib/python3.12/site-packages/starlette/applications.py:96: in __call__
+    await self.middleware_stack(scope, receive, send)
+.venv/lib/python3.12/site-packages/starlette/middleware/errors.py:186: in __call__
+    raise exc
+.venv/lib/python3.12/site-packages/starlette/middleware/errors.py:164: in __call__
+    await self.app(scope, receive, _send)
+.venv/lib/python3.12/site-packages/fastapi/telemetry/_asgi.py:151: in __call__
+    await self.app(scope, receive, send)
+.venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py:63: in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+.venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+.venv/lib/python3.12/site-packages/starlette/routing.py:676: in __call__
+    await self.middleware_stack(scope, receive, send)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:2786: in app
+    await route.handle(scope, receive, send)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:1817: in handle
+    await self.original_router.handle(scope, receive, send)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:2869: in handle
+    await included_router._handle_selected(scope, receive, send)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:1843: in _handle_selected
+    await original_route.handle(scope, receive, send)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:1308: in handle
+    await effective_context.app(scope, receive, send)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:165: in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:53: in wrapped_app
+    raise exc
+.venv/lib/python3.12/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+.venv/lib/python3.12/site-packages/fastapi/routing.py:151: in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/fastapi/routing.py:727: in app
+    raw_response = await run_endpoint_function(
+.venv/lib/python3.12/site-packages/fastapi/routing.py:360: in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/sharey/server.py:116: in publish_object
+    files, directories = await run_in_threadpool(
+.venv/lib/python3.12/site-packages/starlette/concurrency.py:34: in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/anyio/to_thread.py:65: in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py:2706: in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py:1100: in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+src/sharey/archives.py:83: in decode
+    data = source.read(max_bytes + 1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/zipfile/__init__.py:1008: in read
+    data = self._read1(n)
+           ^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/zipfile/__init__.py:1091: in _read1
+    data = self._decompressor.decompress(data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <zipfile.LZMADecompressor object at 0x10a4e1460>
+data = b'\t\x04\x05\x00\xff\x00\x00\x80\x00\x00=\x9f\\\xff\xff\xff\xff\xf0\x00\x00\x00'
+
+    def decompress(self, data):
+        if self._decomp is None:
+            self._unconsumed += data
+            if len(self._unconsumed) <= 4:
+                return b''
+            psize, = struct.unpack('<H', self._unconsumed[2:4])
+            if len(self._unconsumed) <= 4 + psize:
+                return b''
+
+            self._decomp = lzma.LZMADecompressor(lzma.FORMAT_RAW, filters=[
+>               lzma._decode_filter_properties(lzma.FILTER_LZMA1,
+                                               self._unconsumed[4:4 + psize])
+            ])
+E           _lzma.LZMAError: Invalid or unsupported options
+
+../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/zipfile/__init__.py:711: LZMAError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_boundaries.py::test_corrupt_compressed_upload_returns_validation_json_without_publication[12-0]
+FAILED tests/test_boundaries.py::test_corrupt_compressed_upload_returns_validation_json_without_publication[14-4]
+2 failed, 1 passed, 1 warning in 0.52s
+
+2026-10-11T16:27:58.096871+00:00 GREEN ['tests/test_boundaries.py::test_corrupt_compressed_upload_returns_validation_json_without_publication'] exit=0
+...                                                                      [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+3 passed, 1 warning in 0.17s

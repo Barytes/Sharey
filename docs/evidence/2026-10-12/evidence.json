@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "interfaces": [
+    "real HTTP",
+    "CLI subprocess"
+  ],
+  "publications": {
+    "source": "2571495d8c0313e59027c98a8a66bdc1f5b15bd1",
+    "skill": "b13e51c9b46d4910a1a4253ad8c60eee9c4b6e3c",
+    "sharey_skill": "a2ab2da2c9f44121b7009f49daf2a902ef7952eb",
+    "root": "59bffc6e35c083dee9ec54c1221d3db628ca4a61",
+    "left": "e8a533b0ca78c93631cfd45d899be39f55673ced",
+    "right": "ed8d8e17493d2ae6c95d704f0fe84bc856f991af",
+    "merge": "efb971239d1734823d45856a717ce5bd953803af"
+  },
+  "parents": {
+    "59bffc6e35c083dee9ec54c1221d3db628ca4a61": [],
+    "e8a533b0ca78c93631cfd45d899be39f55673ced": [
+      "59bffc6e35c083dee9ec54c1221d3db628ca4a61"
+    ],
+    "ed8d8e17493d2ae6c95d704f0fe84bc856f991af": [
+      "59bffc6e35c083dee9ec54c1221d3db628ca4a61"
+    ],
+    "efb971239d1734823d45856a717ce5bd953803af": [
+      "e8a533b0ca78c93631cfd45d899be39f55673ced",
+      "ed8d8e17493d2ae6c95d704f0fe84bc856f991af"
+    ]
+  },
+  "skill_result": {
+    "baseline_mean_ms": 12.0,
+    "candidate_mean_ms": 9.0,
+    "difference_ms": -3.0,
+    "trials_per_variant": 3,
+    "conclusion": "pilot_only"
+  },
+  "snapshot_unchanged": true,
+  "private_canary_absent": true,
+  "restart_preserved": true,
+  "cross_vendor_agent_acceptance": "not exercised by this CLI runner"
+}

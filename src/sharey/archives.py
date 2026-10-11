@@ -1,7 +1,9 @@
 import io
+import lzma
 import stat
 import unicodedata
 import zipfile
+import zlib
 from pathlib import PurePosixPath
 
 from sharey.errors import ShareyError
@@ -83,6 +85,14 @@ def decode(
                     if len(data) > max_bytes:
                         raise ShareyError(413, "Unpacked byte limit exceeded")
                     files[path] = (data, bool(info.external_attr >> 16 & 0o111))
-    except (zipfile.BadZipFile, RuntimeError, NotImplementedError) as error:
+    except (
+        zipfile.BadZipFile,
+        RuntimeError,
+        NotImplementedError,
+        zlib.error,
+        lzma.LZMAError,
+        OSError,
+        EOFError,
+    ) as error:
         raise ValueError("Invalid ZIP archive") from error
     return files, directories

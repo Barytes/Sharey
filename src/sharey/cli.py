@@ -108,7 +108,12 @@ def main() -> int:
                     response.headers.get("X-Sharey-Executable") == "true",
                 )
             else:
-                save_archive(args.out, response.content)
+                save_archive(
+                    args.out,
+                    response.content,
+                    int(response.headers.get("X-Sharey-Archive-Unpacked-Bytes", 16 * 1024 * 1024)),
+                    int(response.headers.get("X-Sharey-Archive-Entries", 1000)),
+                )
             print(json.dumps({"out": str(args.out), "id": args.id}))
         else:
             print(json.dumps(response.json(), ensure_ascii=False))

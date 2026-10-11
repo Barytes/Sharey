@@ -1,0 +1,49 @@
+{
+  "status": "pending_external_model_approval",
+  "executed_at": "2026-10-12T00:29:26+08:00",
+  "codex_cli": "0.153.4",
+  "claude_code": "2.1.97",
+  "authentication_observation": {
+    "codex": "Logged in using ChatGPT",
+    "claude_code": "loggedIn=true, authMethod=oauth_token, apiProvider=firstParty"
+  },
+  "native_attempt": {
+    "role": "a",
+    "native_cli": "Codex",
+    "started_at_unix": 1791736165.959593,
+    "elapsed_seconds": 1.759,
+    "exit_code": 1,
+    "timed_out": false,
+    "command": [
+      "/Users/beiyanliu/.local/bin/codex",
+      "exec",
+      "--ephemeral",
+      "--sandbox",
+      "workspace-write",
+      "-c",
+      "sandbox_workspace_write.network_access=true",
+      "-c",
+      "shell_environment_policy.inherit=\"all\"",
+      "--skip-git-repo-check",
+      "--cd",
+      "/private/tmp/sharey-agent-20261012/a",
+      "--json",
+      "--output-last-message",
+      "/private/tmp/sharey-agent-20261012/a-final.txt",
+      "-"
+    ],
+    "workspace": "/private/tmp/sharey-agent-20261012/a",
+    "prompt_file": "a-prompt.txt",
+    "transcript_file": "a-stdout.jsonl"
+  },
+  "visible_publications": {
+    "nodes": 0,
+    "sources": 0,
+    "skills": 0
+  },
+  "model_execution_confirmed": false,
+  "runtime_failure": "Native Codex could not initialize its in-process app-server client in the restricted sandbox; readonly state database and Operation not permitted.",
+  "escalated_attempt": "Rejected by automatic approval review before launch. The reviewer required explicit approval for disclosure of local fixture files and the temporary Sharey bearer credential to external authenticated model processes.",
+  "next_step": "Await explicit user approval for synthetic pilot data, Sharey Skill, command results and temporary localhost project credential only; rerun with an allowlisted environment. Then execute the fresh Claude receiver and fresh branch/merge sessions.",
+  "cli_workspace_is_not_agent_acceptance": true
+}

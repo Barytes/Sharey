@@ -1,0 +1,32 @@
+Execution date: 2026-10-12 Asia/Shanghai
+
+lint exit=0
+All checks passed!
+
+format exit=0
+21 files already formatted
+
+types exit=0
+Success: no issues found in 10 source files
+
+diff exit=0
+
+environment exit=0
+{
+  "python": "3.12.12",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "sharey_module": "/Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/sharey/__init__.py",
+  "PYTHONPATH": null,
+  "packages": {
+    "sharey": "0.1.0",
+    "fastapi": "0.143.0",
+    "starlette": "1.7.0",
+    "uvicorn": "0.54.0",
+    "httpx": "0.28.1",
+    "pydantic": "2.14.0",
+    "pytest": "9.1.1",
+    "ruff": "0.17.0",
+    "mypy": "1.20.2"
+  }
+}
+
