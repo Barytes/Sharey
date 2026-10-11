@@ -1,0 +1,1563 @@
+
+2026-10-11T15:44:03.103961+00:00 RED ['tests/test_project.py'] exit=2
+
+==================================== ERRORS ====================================
+____________________ ERROR collecting tests/test_project.py ____________________
+ImportError while importing test module '/Users/beiyanliu/Desktop/sharey/tests/test_project.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+../../.local/share/uv/python/cpython-3.12.12-macos-aarch64-none/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_project.py:3: in <module>
+    from sharey.server import create_app
+E   ModuleNotFoundError: No module named 'sharey'
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+ERROR tests/test_project.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 warning, 1 error in 1.25s
+
+2026-10-11T15:44:30.143396+00:00 RED ['tests/test_project.py'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____________ test_member_can_read_project_goal_and_empty_navigation ____________
+
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-0/test_member_can_read_project_g0')
+
+    def test_member_can_read_project_goal_and_empty_navigation(tmp_path):
+        app = create_app(tmp_path, {"projects": {"demo": {"goal": "Compare measurements", "token": "demo-secret"}}})
+        with TestClient(app) as client:
+            response = client.get("/projects/demo/overview", headers={"Authorization": "Bearer demo-secret"})
+>       assert response.status_code == 200
+E       assert 404 == 200
+E        +  where 404 = <Response [404 Not Found]>.status_code
+
+tests/test_project.py:10: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_project.py::test_member_can_read_project_goal_and_empty_navigation
+1 failed, 1 warning in 0.54s
+
+2026-10-11T15:44:46.157268+00:00 GREEN ['tests/test_project.py'] exit=0
+.                                                                        [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 0.68s
+
+2026-10-11T15:44:47.237655+00:00 RED ['tests/test_project.py::test_project_routes_reject_missing_wrong_and_other_project_credentials'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____ test_project_routes_reject_missing_wrong_and_other_project_credentials ____
+
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-2/test_project_routes_reject_mis0')
+
+    def test_project_routes_reject_missing_wrong_and_other_project_credentials(tmp_path):
+        app = create_app(tmp_path, {"projects": {
+            "demo": {"goal": "private-goal", "token": "demo-secret"},
+            "other": {"goal": "other-private-goal", "token": "other-secret"},
+        }})
+        with TestClient(app) as client:
+            for project in ("demo", "missing"):
+                for token in (None, "wrong", "other-secret"):
+                    headers = {} if token is None else {"Authorization": f"Bearer {token}"}
+                    response = client.get(f"/projects/{project}/overview", headers=headers)
+>                   assert response.status_code == 401
+E                   assert 200 == 401
+E                    +  where 200 = <Response [200 OK]>.status_code
+
+tests/test_project.py:24: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_project.py::test_project_routes_reject_missing_wrong_and_other_project_credentials
+1 failed, 1 warning in 0.44s
+
+2026-10-11T15:45:18.888140+00:00 GREEN ['tests/test_project.py'] exit=0
+..                                                                       [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2 passed, 1 warning in 0.27s
+
+2026-10-11T15:45:19.789699+00:00 RED ['tests/test_cli.py'] exit=1
+E                                                                        [100%]
+==================================== ERRORS ====================================
+_____ ERROR at setup of test_cli_reads_real_http_project_and_lists_objects _____
+
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-4/test_cli_reads_real_http_proje0')
+
+    @pytest.fixture
+    def service(tmp_path):
+        server = LiveService(tmp_path)
+        try:
+>           yield server.start()
+                  ^^^^^^^^^^^^^^
+
+tests/conftest.py:76: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <conftest.LiveService object at 0x10b69c350>, extra_env = None
+
+    def start(self, extra_env=None):
+        with socket.socket() as sock:
+            sock.bind(("127.0.0.1", 0))
+            port = sock.getsockname()[1]
+        self.url = f"http://127.0.0.1:{port}"
+        self.log = (self.root / "server.log").open("ab")
+        self.process = subprocess.Popen(
+            [sys.executable, "-m", "sharey.cli", "serve", "--config", str(self.config),
+             "--data-dir", str(self.data), "--port", str(port)],
+            cwd=self.root, env={**os.environ, **(extra_env or {})},
+            stdout=self.log, stderr=subprocess.STDOUT, start_new_session=True,
+        )
+        deadline = time.monotonic() + 10
+        while time.monotonic() < deadline:
+            if self.process.poll() is not None:
+>               raise AssertionError((self.root / "server.log").read_text())
+E               AssertionError: /Users/beiyanliu/Desktop/sharey/.venv/bin/python: No module named sharey.cli
+
+tests/conftest.py:54: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+ERROR tests/test_cli.py::test_cli_reads_real_http_project_and_lists_objects
+1 warning, 1 error in 0.21s
+
+2026-10-11T15:45:59.681821+00:00 GREEN ['tests/test_cli.py', 'tests/test_project.py'] exit=4
+ImportError while loading conftest '/Users/beiyanliu/Desktop/sharey/tests/conftest.py'.
+tests/conftest.py:13: in <module>
+    from sharey.server import create_app
+E   ModuleNotFoundError: No module named 'sharey'
+
+2026-10-11T15:46:05.451035+00:00 RED ['tests/test_nodes.py'] exit=4
+ImportError while loading conftest '/Users/beiyanliu/Desktop/sharey/tests/conftest.py'.
+tests/conftest.py:13: in <module>
+    from sharey.server import create_app
+E   ModuleNotFoundError: No module named 'sharey'
+
+2026-10-11T15:46:25.912598+00:00 GREEN ['tests/test_cli.py', 'tests/test_project.py'] exit=4
+ImportError while loading conftest '/Users/beiyanliu/Desktop/sharey/tests/conftest.py'.
+tests/conftest.py:13: in <module>
+    from sharey.server import create_app
+E   ModuleNotFoundError: No module named 'sharey'
+
+2026-10-11T15:46:55.126149+00:00 GREEN ['tests/test_cli.py', 'tests/test_project.py'] exit=0
+...                                                                      [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+3 passed, 1 warning in 1.54s
+
+2026-10-11T15:46:56.044557+00:00 RED ['tests/test_nodes.py'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______________ test_publish_current_bytes_and_read_immutable_node ______________
+
+api = <starlette.testclient.TestClient object at 0x10c3335f0>
+
+    def test_publish_current_bytes_and_read_immutable_node(api):
+        response = publish(api)
+>       assert response.status_code == 201, response.text
+E       AssertionError: {"detail":"Method Not Allowed"}
+E       assert 405 == 201
+E        +  where 405 = <Response [405 Method Not Allowed]>.status_code
+
+tests/test_nodes.py:35: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_nodes.py::test_publish_current_bytes_and_read_immutable_node
+1 failed, 1 warning in 0.09s
+
+2026-10-11T15:48:09.072200+00:00 GREEN ['tests/test_nodes.py'] exit=0
+.                                                                        [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 1.07s
+
+2026-10-11T15:48:53.374480+00:00 RED ['tests/test_cli.py::test_cli_publishes_selected_disk_snapshot_and_downloads_after_local_deletion'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_cli_publishes_selected_disk_snapshot_and_downloads_after_local_deletion _
+
+service = <conftest.LiveService object at 0x109fae300>
+cli = <function cli.<locals>.run at 0x10a118fe0>
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-8/test_cli_publishes_selected_di0')
+
+    def test_cli_publishes_selected_disk_snapshot_and_downloads_after_local_deletion(service, cli, tmp_path):
+        a, b = tmp_path / 'a', tmp_path / 'b'
+        a.mkdir()
+        b.mkdir()
+        (a / 'memory.md').write_text('# Goal\nTwo observations only.\n')
+        (a / 'data.bin').write_bytes(b'\x00\xffselected\n')
+        (a / 'run.sh').write_bytes(b'#!/bin/sh\nprintf ok\n')
+        (a / 'run.sh').chmod(0o755)
+        (a / 'private.txt').write_text('PRIVATE-CANARY')
+        manifest = {
+            'schema_version': 1, 'title': 'Selected snapshot', 'summary': 'Two observations.',
+            'contributor': 'Alice', 'memory': 'memory.md', 'parents': [], 'sources': [], 'skills': [],
+            'files': [{'source': 'data.bin', 'path': 'nested/data.bin'}, {'source': 'run.sh', 'path': 'run.sh'}],
+        }
+        (a / 'publish.json').write_text(json.dumps(manifest))
+        result = cli(service, a, 'publish', 'node', '--manifest', 'publish.json', '--key', 'snapshot')
+>       assert result.returncode == 0, result.stderr
+E       AssertionError: usage: sharey [-h] [--url URL] [--project PROJECT] [--token TOKEN]
+E                       {serve,overview,list} ...
+E         sharey: error: argument command: invalid choice: 'publish' (choose from serve, overview, list)
+E         
+E       assert 2 == 0
+E        +  where 2 = CompletedProcess(args=['/Users/beiyanliu/Desktop/sharey/.venv/bin/python', '-m', 'sharey.cli', 'publish', 'node', '--m...,overview,list} ...\nsharey: error: argument command: invalid choice: 'publish' (choose from serve, overview, list)\n").returncode
+
+tests/test_cli.py:36: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_cli.py::test_cli_publishes_selected_disk_snapshot_and_downloads_after_local_deletion
+1 failed, 1 warning in 0.79s
+
+2026-10-11T15:49:41.726144+00:00 GREEN ['tests/test_cli.py', 'tests/test_nodes.py'] exit=0
+...                                                                      [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+3 passed, 1 warning in 4.52s
+
+2026-10-11T15:50:03.098021+00:00 RED ['tests/test_assets.py'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__________ test_source_can_be_published_read_and_downloaded_with_cli ___________
+
+service = <conftest.LiveService object at 0x107764ce0>
+cli = <function cli.<locals>.run at 0x10789cfe0>
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-10/test_source_can_be_published_r0')
+
+    def test_source_can_be_published_read_and_downloaded_with_cli(service, cli, tmp_path):
+        a, b = tmp_path / 'a', tmp_path / 'b'
+        a.mkdir()
+        b.mkdir()
+        content = b'%PDF-1.4\nfixed-reference\x00\xff\n'
+        (a / 'reference.pdf').write_bytes(content)
+        result = cli(service, a, 'publish', 'source', '--file', 'reference.pdf', '--title', 'Reference',
+                     '--summary', 'Fixed source', '--contributor', 'Alice', '--key', 'reference')
+>       assert result.returncode == 0, result.stderr
+E       AssertionError: usage: sharey publish [-h] {node} ...
+E         sharey publish: error: argument kind: invalid choice: 'source' (choose from node)
+E         
+E       assert 2 == 0
+E        +  where 2 = CompletedProcess(args=['/Users/beiyanliu/Desktop/sharey/.venv/bin/python', '-m', 'sharey.cli', 'publish', 'source', '-...: sharey publish [-h] {node} ...\nsharey publish: error: argument kind: invalid choice: 'source' (choose from node)\n").returncode
+
+tests/test_assets.py:12: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_assets.py::test_source_can_be_published_read_and_downloaded_with_cli
+1 failed, 1 warning in 0.80s
+
+2026-10-11T15:50:42.714507+00:00 GREEN ['tests/test_assets.py'] exit=0
+.                                                                        [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 1.74s
+
+2026-10-11T15:50:43.966821+00:00 RED ['tests/test_assets.py::test_complete_skill_preserves_relative_resources_empty_dirs_and_executes'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___ test_complete_skill_preserves_relative_resources_empty_dirs_and_executes ___
+
+service = <conftest.LiveService object at 0x10b91eba0>
+cli = <function cli.<locals>.run at 0x10ba78cc0>
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-12/test_complete_skill_preserves_0')
+
+    def test_complete_skill_preserves_relative_resources_empty_dirs_and_executes(service, cli, tmp_path):
+        import subprocess
+        a, b = tmp_path / 'a', tmp_path / 'b'
+        skill = a / 'compute'
+        for folder in ('scripts', 'references', 'assets', 'templates', 'empty'):
+            (skill / folder).mkdir(parents=True, exist_ok=True)
+        b.mkdir()
+        (skill / 'SKILL.md').write_text('---\nname: compute\ndescription: Compute fixed result.\n---\nRun scripts/compute.py.\n')
+        (skill / 'references/method.txt').write_text('Add offset to all values.\n')
+        (skill / 'assets/offset.txt').write_text('3\n')
+        (skill / 'templates/result.txt').write_text('total={total}\n')
+        (skill / 'scripts/compute.py').write_text(
+            '#!/usr/bin/env python3\nfrom pathlib import Path\n'
+            'root = Path(__file__).resolve().parents[1]\n'
+            'assert (root / "references/method.txt").read_text().startswith("Add")\n'
+            'print((root / "templates/result.txt").read_text().format(total=2+int((root / "assets/offset.txt").read_text())), end="")\n')
+        (skill / 'scripts/compute.py').chmod(0o755)
+        result = cli(service, a, 'publish', 'skill', '--dir', 'compute', '--title', 'Compute',
+                     '--summary', 'Fixed computation', '--contributor', 'Alice', '--key', 'compute')
+>       assert result.returncode == 0, result.stderr
+E       AssertionError: usage: sharey publish [-h] {node,source} ...
+E         sharey publish: error: argument kind: invalid choice: 'skill' (choose from node, source)
+E         
+E       assert 2 == 0
+E        +  where 2 = CompletedProcess(args=['/Users/beiyanliu/Desktop/sharey/.venv/bin/python', '-m', 'sharey.cli', 'publish', 'skill', '--...sh [-h] {node,source} ...\nsharey publish: error: argument kind: invalid choice: 'skill' (choose from node, source)\n").returncode
+
+tests/test_assets.py:43: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_assets.py::test_complete_skill_preserves_relative_resources_empty_dirs_and_executes
+1 failed, 1 warning in 0.68s
+
+2026-10-11T15:51:43.070819+00:00 GREEN ['tests/test_assets.py', 'tests/test_cli.py'] exit=0
+....                                                                     [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+4 passed, 1 warning in 5.43s
+
+2026-10-11T15:52:02.506399+00:00 RED ['tests/test_dag.py'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____ test_branches_and_merge_use_exact_git_parents_and_shared_navigation ______
+
+api = <starlette.testclient.TestClient object at 0x107ec15e0>
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-14/test_branches_and_merge_use_ex0')
+
+    def test_branches_and_merge_use_exact_git_parents_and_shared_navigation(api, tmp_path):
+        root = publish(api, node_bundle('Root'), key='root').json()['id']
+        left = publish(api, node_bundle('Left', parents=[root]), key='left').json()['id']
+        right = publish(api, node_bundle('Right', parents=[root]), key='right').json()['id']
+        merged = publish(api, node_bundle('Merge', parents=[left, right]), key='merge').json()['id']
+        expected = {root: [], left: [root], right: [root], merged: [left, right]}
+        overview = api.get('/projects/demo/overview', headers=AUTH).json()
+>       assert {node['id']: node['parents'] for node in overview['nodes']} == expected
+E       AssertionError: assert {'3d15a90f370...e9055c7a': []} == {'3d15a90f370...355cd2cebc0']}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'8c0386057f060c36af106899895779aa33ce19ca': []} != {'8c0386057f060c36af106899895779aa33ce19ca': ['3d15a90f370b711bc3168e05eeba78d7ade78745']}
+E         {'f7b90ac340d3340b218cea010af7ae8be9055c7a': []} != {'f7b90ac340d3340b218cea010af7ae8be9055c7a': ['8c0386057f060c36af106899895779aa33ce19ca', '5e76f7cfa02d15a443b7217ef7119355cd2cebc0']}
+E         {'5e76f7cfa02d15a443b7217ef7119355cd2cebc0': []} != {'5e76f7cfa02d15a443b7217ef7119355cd2cebc0': ['3d15a90f370b711bc3168e05eeba78d7ade78745']}
+E         Use -v to get more diff
+
+tests/test_dag.py:14: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_dag.py::test_branches_and_merge_use_exact_git_parents_and_shared_navigation
+1 failed, 1 warning in 0.73s
+
+2026-10-11T15:52:31.626644+00:00 GREEN ['tests/test_dag.py'] exit=0
+.                                                                        [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 1.24s
+
+2026-10-11T15:52:32.670715+00:00 RED ['tests/test_dag.py::test_invalid_references_never_publish_or_change_existing_navigation'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____ test_invalid_references_never_publish_or_change_existing_navigation ______
+
+api = <starlette.testclient.TestClient object at 0x1084b6180>
+
+    def test_invalid_references_never_publish_or_change_existing_navigation(api):
+        from test_nodes import bundle
+        source = publish(api, bundle({'schema_version': 1, 'title': 'Reference', 'summary': '',
+                                      'contributor': 'Alice', 'filename': 'ref.txt'},
+                                     {'files/ref.txt': b'reference'}), key='src', kind='sources').json()['id']
+        skill = publish(api, bundle({'schema_version': 1, 'title': 'Method', 'summary': '',
+                                     'contributor': 'Alice'}, {'skill/SKILL.md': b'# Method'}),
+                        key='skill', kind='skills').json()['id']
+        root = publish(api, node_bundle(sources=[source], skills=[skill])).json()['id']
+        other = publish(api, node_bundle('Other project'), key='other-root', project='other', token='other-secret').json()['id']
+        baseline = api.get('/projects/demo/overview', headers=AUTH).json()
+        cases = [
+            {'parents': ['f' * 40]}, {'parents': [other]}, {'parents': [source]},
+            {'parents': [root, root]}, {'sources': ['e' * 40]}, {'sources': [skill]},
+            {'skills': ['d' * 40]}, {'skills': [source]},
+        ]
+        for number, references in enumerate(cases):
+            response = publish(api, node_bundle('Rejected', **references), key=f'bad-{number}')
+>           assert response.status_code == 422, response.text
+E           AssertionError: {"detail":"Git storage operation failed"}
+E           assert 500 == 422
+E            +  where 500 = <Response [500 Internal Server Error]>.status_code
+
+tests/test_dag.py:47: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_dag.py::test_invalid_references_never_publish_or_change_existing_navigation
+1 failed, 1 warning in 0.73s
+
+2026-10-11T15:52:50.030428+00:00 GREEN ['tests/test_dag.py'] exit=0
+..                                                                       [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2 passed, 1 warning in 3.60s
+
+2026-10-11T15:53:29.942834+00:00 RED ['tests/test_boundaries.py'] exit=1
+FFFFFFFFFF                                                               [100%]
+=================================== FAILURES ===================================
+_______ test_unsafe_uploads_never_become_visible[/absolute-33188-False] ________
+
+api = <starlette.testclient.TestClient object at 0x10a579fd0>
+name = '/absolute', mode = 33188, duplicate = False
+
+    @pytest.mark.parametrize('name,mode,duplicate', [
+        ('/absolute', stat.S_IFREG | 0o644, False),
+        ('files/../escape', stat.S_IFREG | 0o644, False),
+        ('files/a//b', stat.S_IFREG | 0o644, False),
+        ('files/./b', stat.S_IFREG | 0o644, False),
+        ('files/a\\b', stat.S_IFREG | 0o644, False),
+        ('files/C:/escape', stat.S_IFREG | 0o644, False),
+        ('files/a\x7fb', stat.S_IFREG | 0o644, False),
+        ('files/link', stat.S_IFLNK | 0o777, False),
+        ('files/fifo', stat.S_IFIFO | 0o644, False),
+        ('files/duplicate', stat.S_IFREG | 0o644, True),
+    ])
+    def test_unsafe_uploads_never_become_visible(api, name, mode, duplicate):
+        before = api.get('/projects/demo/overview', headers=AUTH).json()
+        response = publish(api, unsafe_bundle(name, mode, duplicate), key='unsafe')
+>       assert response.status_code == 422, response.text
+E       AssertionError: {"detail":"Git storage operation failed"}
+E       assert 500 == 422
+E        +  where 500 = <Response [500 Internal Server Error]>.status_code
+
+tests/test_boundaries.py:47: AssertionError
+____ test_unsafe_uploads_never_become_visible[files/../escape-33188-False] _____
+
+api = <starlette.testclient.TestClient object at 0x10a687bc0>
+name = 'files/../escape', mode = 33188, duplicate = False
+
+    @pytest.mark.parametrize('name,mode,duplicate', [
+        ('/absolute', stat.S_IFREG | 0o644, False),
+        ('files/../escape', stat.S_IFREG | 0o644, False),
+        ('files/a//b', stat.S_IFREG | 0o644, False),
+        ('files/./b', stat.S_IFREG | 0o644, False),
+        ('files/a\\b', stat.S_IFREG | 0o644, False),
+        ('files/C:/escape', stat.S_IFREG | 0o644, False),
+        ('files/a\x7fb', stat.S_IFREG | 0o644, False),
+        ('files/link', stat.S_IFLNK | 0o777, False),
+        ('files/fifo', stat.S_IFIFO | 0o644, False),
+        ('files/duplicate', stat.S_IFREG | 0o644, True),
+    ])
+    def test_unsafe_uploads_never_become_visible(api, name, mode, duplicate):
+        before = api.get('/projects/demo/overview', headers=AUTH).json()
+        response = publish(api, unsafe_bundle(name, mode, duplicate), key='unsafe')
+>       assert response.status_code == 422, response.text
+E       AssertionError: {"contributor":"Alice","created_at":"2026-10-11T15:53:28.251926+00:00","kind":"nodes","parents":[],"schema_version":1,"skills":[],"sources":[],"summary":"","title":"Unsafe","id":"e9e9aaa1cb40c6f3d10bc6e9a7dcba87895cf24a","files":[{"path":"../escape","size":14,"executable":false}]}
+E       assert 201 == 422
+E        +  where 201 = <Response [201 Created]>.status_code
+
+tests/test_boundaries.py:47: AssertionError
+_______ test_unsafe_uploads_never_become_visible[files/a//b-33188-False] _______
+
+api = <starlette.testclient.TestClient object at 0x10a790dd0>
+name = 'files/a//b', mode = 33188, duplicate = False
+
+    @pytest.mark.parametrize('name,mode,duplicate', [
+        ('/absolute', stat.S_IFREG | 0o644, False),
+        ('files/../escape', stat.S_IFREG | 0o644, False),
+        ('files/a//b', stat.S_IFREG | 0o644, False),
+        ('files/./b', stat.S_IFREG | 0o644, False),
+        ('files/a\\b', stat.S_IFREG | 0o644, False),
+        ('files/C:/escape', stat.S_IFREG | 0o644, False),
+        ('files/a\x7fb', stat.S_IFREG | 0o644, False),
+        ('files/link', stat.S_IFLNK | 0o777, False),
+        ('files/fifo', stat.S_IFIFO | 0o644, False),
+        ('files/duplicate', stat.S_IFREG | 0o644, True),
+    ])
+    def test_unsafe_uploads_never_become_visible(api, name, mode, duplicate):
+        before = api.get('/projects/demo/overview', headers=AUTH).json()
+        response = publish(api, unsafe_bundle(name, mode, duplicate), key='unsafe')
+>       assert response.status_code == 422, response.text
+E       AssertionError: {"detail":"Git storage operation failed"}
+E       assert 500 == 422
+E        +  where 500 = <Response [500 Internal Server Error]>.status_code
+
+tests/test_boundaries.py:47: AssertionError
+_______ test_unsafe_uploads_never_become_visible[files/./b-33188-False] ________
+
+api = <starlette.testclient.TestClient object at 0x10a853590>
+name = 'files/./b', mode = 33188, duplicate = False
+
+    @pytest.mark.parametrize('name,mode,duplicate', [
+        ('/absolute', stat.S_IFREG | 0o644, False),
+        ('files/../escape', stat.S_IFREG | 0o644, False),
+        ('files/a//b', stat.S_IFREG | 0o644, False),
+        ('files/./b', stat.S_IFREG | 0o644, False),
+        ('files/a\\b', stat.S_IFREG | 0o644, False),
+        ('files/C:/escape', stat.S_IFREG | 0o644, False),
+        ('files/a\x7fb', stat.S_IFREG | 0o644, False),
+        ('files/link', stat.S_IFLNK | 0o777, False),
+        ('files/fifo', stat.S_IFIFO | 0o644, False),
+        ('files/duplicate', stat.S_IFREG | 0o644, True),
+    ])
+    def test_unsafe_uploads_never_become_visible(api, name, mode, duplicate):
+        before = api.get('/projects/demo/overview', headers=AUTH).json()
+        response = publish(api, unsafe_bundle(name, mode, duplicate), key='unsafe')
+>       assert response.status_code == 422, response.text
+E       AssertionError: {"contributor":"Alice","created_at":"2026-10-11T15:53:28.627964+00:00","kind":"nodes","parents":[],"schema_version":1,"skills":[],"sources":[],"summary":"","title":"Unsafe","id":"6474573a547cb59eee1d6da0b6d00d579c83ac1f","files":[{"path":"./b","size":14,"executable":false}]}
+E       assert 201 == 422
+E        +  where 201 = <Response [201 Created]>.status_code
+
+tests/test_boundaries.py:47: AssertionError
+_______ test_unsafe_uploads_never_become_visible[files/a\\b-33188-False] _______
+
+api = <starlette.testclient.TestClient object at 0x10a839160>
+name = 'files/a\\b', mode = 33188, duplicate = False
+
+    @pytest.mark.parametrize('name,mode,duplicate', [
+        ('/absolute', stat.S_IFREG | 0o644, False),
+        ('files/../escape', stat.S_IFREG | 0o644, False),
+        ('files/a//b', stat.S_IFREG | 0o644, False),
+        ('files/./b', stat.S_IFREG | 0o644, False),
+        ('files/a\\b', stat.S_IFREG | 0o644, False),
+        ('files/C:/escape', stat.S_IFREG | 0o644, False),
+        ('files/a\x7fb', stat.S_IFREG | 0o644, False),
+        ('files/link', stat.S_IFLNK | 0o777, False),
+        ('files/fifo', stat.S_IFIFO | 0o644, False),
+        ('files/duplicate', stat.S_IFREG | 0o644, True),
+    ])
+    def test_unsafe_uploads_never_become_visible(api, name, mode, duplicate):
+        before = api.get('/projects/demo/overview', headers=AUTH).json()
+        response = publish(api, unsafe_bundle(name, mode, duplicate), key='unsafe')
+>       assert response.status_code == 422, response.text
+E       AssertionError: {"contributor":"Alice","created_at":"2026-10-11T15:53:28.839302+00:00","kind":"nodes","parents":[],"schema_version":1,"skills":[],"sources":[],"summary":"","title":"Unsafe","id":"db99727fedcf2c35ee7bd1418897c5f58a094a90","files":[{"path":"a\\b","size":14,"executable":false}]}
+E       assert 201 == 422
+E        +  where 201 = <Response [201 Created]>.status_code
+
+tests/test_boundaries.py:47: AssertionError
+____ test_unsafe_uploads_never_become_visible[files/C:/escape-33188-False] _____
+
+api = <starlette.testclient.TestClient object at 0x10a8d8530>
+name = 'files/C:/escape', mode = 33188, duplicate = False
+
+    @pytest.mark.parametrize('name,mode,duplicate', [
+        ('/absolute', stat.S_IFREG | 0o644, False),
+        ('files/../escape', stat.S_IFREG | 0o644, False),
+        ('files/a//b', stat.S_IFREG | 0o644, False),
+        ('files/./b', stat.S_IFREG | 0o644, False),
+        ('files/a\\b', stat.S_IFREG | 0o644, False),
+        ('files/C:/escape', stat.S_IFREG | 0o644, False),
+        ('files/a\x7fb', stat.S_IFREG | 0o644, False),
+        ('files/link', stat.S_IFLNK | 0o777, False),
+        ('files/fifo', stat.S_IFIFO | 0o644, False),
+        ('files/duplicate', stat.S_IFREG | 0o644, True),
+    ])
+    def test_unsafe_uploads_never_become_visible(api, name, mode, duplicate):
+        before = api.get('/projects/demo/overview', headers=AUTH).json()
+        response = publish(api, unsafe_bundle(name, mode, duplicate), key='unsafe')
+>       assert response.status_code == 422, response.text
+E       AssertionError: {"contributor":"Alice","created_at":"2026-10-11T15:53:29.026093+00:00","kind":"nodes","parents":[],"schema_version":1,"skills":[],"sources":[],"summary":"","title":"Unsafe","id":"ae03b9a0893650469cc0033271f58658326a3ac7","files":[{"path":"C:/escape","size":14,"executable":false}]}
+E       assert 201 == 422
+E        +  where 201 = <Response [201 Created]>.status_code
+
+tests/test_boundaries.py:47: AssertionError
+______ test_unsafe_uploads_never_become_visible[files/a\x7fb-33188-False] ______
+
+api = <starlette.testclient.TestClient object at 0x10a8d82f0>
+name = 'files/a\x7fb', mode = 33188, duplicate = False
+
+    @pytest.mark.parametrize('name,mode,duplicate', [
+        ('/absolute', stat.S_IFREG | 0o644, False),
+        ('files/../escape', stat.S_IFREG | 0o644, False),
+        ('files/a//b', stat.S_IFREG | 0o644, False),
+        ('files/./b', stat.S_IFREG | 0o644, False),
+        ('files/a\\b', stat.S_IFREG | 0o644, False),
+        ('files/C:/escape', stat.S_IFREG | 0o644, False),
+        ('files/a\x7fb', stat.S_IFREG | 0o644, False),
+        ('files/link', stat.S_IFLNK | 0o777, False),
+        ('files/fifo', stat.S_IFIFO | 0o644, False),
+        ('files/duplicate', stat.S_IFREG | 0o644, True),
+    ])
+    def test_unsafe_uploads_never_become_visible(api, name, mode, duplicate):
+        before = api.get('/projects/demo/overview', headers=AUTH).json()
+        response = publish(api, unsafe_bundle(name, mode, duplicate), key='unsafe')
+>       assert response.status_code == 422, response.text
+E       AssertionError: {"contributor":"Alice","created_at":"2026-10-11T15:53:29.222375+00:00","kind":"nodes","parents":[],"schema_version":1,"skills":[],"sources":[],"summary":"","title":"Unsafe","id":"0bf265b1c51df086f2e5102a308d4b4a626abe19","files":[{"path":"ab","size":14,"executable":false}]}
+E       assert 201 == 422
+E        +  where 201 = <Response [201 Created]>.status_code
+
+tests/test_boundaries.py:47: AssertionError
+_______ test_unsafe_uploads_never_become_visible[files/link-41471-False] _______
+
+api = <starlette.testclient.TestClient object at 0x10a93b3e0>
+name = 'files/link', mode = 41471, duplicate = False
+
+    @pytest.mark.parametrize('name,mode,duplicate', [
+        ('/absolute', stat.S_IFREG | 0o644, False),
+        ('files/../escape', stat.S_IFREG | 0o644, False),
+        ('files/a//b', stat.S_IFREG | 0o644, False),
+        ('files/./b', stat.S_IFREG | 0o644, False),
+        ('files/a\\b', stat.S_IFREG | 0o644, False),
+        ('files/C:/escape', stat.S_IFREG | 0o644, False),
+        ('files/a\x7fb', stat.S_IFREG | 0o644, False),
+        ('files/link', stat.S_IFLNK | 0o777, False),
+        ('files/fifo', stat.S_IFIFO | 0o644, False),
+        ('files/duplicate', stat.S_IFREG | 0o644, True),
+    ])
+    def test_unsafe_uploads_never_become_visible(api, name, mode, duplicate):
+        before = api.get('/projects/demo/overview', headers=AUTH).json()
+        response = publish(api, unsafe_bundle(name, mode, duplicate), key='unsafe')
+>       assert response.status_code == 422, response.text
+E       AssertionError: {"contributor":"Alice","created_at":"2026-10-11T15:53:29.408783+00:00","kind":"nodes","parents":[],"schema_version":1,"skills":[],"sources":[],"summary":"","title":"Unsafe","id":"2bd0c4fe60204cc20d595088de0f3d1bb12dfa01","files":[{"path":"link","size":14,"executable":true}]}
+E       assert 201 == 422
+E        +  where 201 = <Response [201 Created]>.status_code
+
+tests/test_boundaries.py:47: AssertionError
+_______ test_unsafe_uploads_never_become_visible[files/fifo-4516-False] ________
+
+api = <starlette.testclient.TestClient object at 0x10a96f770>
+name = 'files/fifo', mode = 4516, duplicate = False
+
+    @pytest.mark.parametrize('name,mode,duplicate', [
+        ('/absolute', stat.S_IFREG | 0o644, False),
+        ('files/../escape', stat.S_IFREG | 0o644, False),
+        ('files/a//b', stat.S_IFREG | 0o644, False),
+        ('files/./b', stat.S_IFREG | 0o644, False),
+        ('files/a\\b', stat.S_IFREG | 0o644, False),
+        ('files/C:/escape', stat.S_IFREG | 0o644, False),
+        ('files/a\x7fb', stat.S_IFREG | 0o644, False),
+        ('files/link', stat.S_IFLNK | 0o777, False),
+        ('files/fifo', stat.S_IFIFO | 0o644, False),
+        ('files/duplicate', stat.S_IFREG | 0o644, True),
+    ])
+    def test_unsafe_uploads_never_become_visible(api, name, mode, duplicate):
+        before = api.get('/projects/demo/overview', headers=AUTH).json()
+        response = publish(api, unsafe_bundle(name, mode, duplicate), key='unsafe')
+>       assert response.status_code == 422, response.text
+E       AssertionError: {"contributor":"Alice","created_at":"2026-10-11T15:53:29.594608+00:00","kind":"nodes","parents":[],"schema_version":1,"skills":[],"sources":[],"summary":"","title":"Unsafe","id":"5ea29eee67aee0e7c32caabb0642270f28aa97f7","files":[{"path":"fifo","size":14,"executable":false}]}
+E       assert 201 == 422
+E        +  where 201 = <Response [201 Created]>.status_code
+
+tests/test_boundaries.py:47: AssertionError
+_____ test_unsafe_uploads_never_become_visible[files/duplicate-33188-True] _____
+
+api = <starlette.testclient.TestClient object at 0x10a823710>
+name = 'files/duplicate', mode = 33188, duplicate = True
+
+    @pytest.mark.parametrize('name,mode,duplicate', [
+        ('/absolute', stat.S_IFREG | 0o644, False),
+        ('files/../escape', stat.S_IFREG | 0o644, False),
+        ('files/a//b', stat.S_IFREG | 0o644, False),
+        ('files/./b', stat.S_IFREG | 0o644, False),
+        ('files/a\\b', stat.S_IFREG | 0o644, False),
+        ('files/C:/escape', stat.S_IFREG | 0o644, False),
+        ('files/a\x7fb', stat.S_IFREG | 0o644, False),
+        ('files/link', stat.S_IFLNK | 0o777, False),
+        ('files/fifo', stat.S_IFIFO | 0o644, False),
+        ('files/duplicate', stat.S_IFREG | 0o644, True),
+    ])
+    def test_unsafe_uploads_never_become_visible(api, name, mode, duplicate):
+        before = api.get('/projects/demo/overview', headers=AUTH).json()
+        response = publish(api, unsafe_bundle(name, mode, duplicate), key='unsafe')
+>       assert response.status_code == 422, response.text
+E       AssertionError: {"contributor":"Alice","created_at":"2026-10-11T15:53:29.782251+00:00","kind":"nodes","parents":[],"schema_version":1,"skills":[],"sources":[],"summary":"","title":"Unsafe","id":"93bf20d3a736f55670e71ae5eacba942ed1ba404","files":[{"path":"duplicate","size":11,"executable":false}]}
+E       assert 201 == 422
+E        +  where 201 = <Response [201 Created]>.status_code
+
+tests/test_boundaries.py:47: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/test_boundaries.py::test_unsafe_uploads_never_become_visible[files/duplicate-33188-True]
+  /Users/beiyanliu/Desktop/sharey/src/sharey/server.py:74: UserWarning: Overlapped entries: 'files/duplicate' (possible zip bomb)
+    files = {info.filename: (archive.read(info), bool(info.external_attr >> 16 & 0o111))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_boundaries.py::test_unsafe_uploads_never_become_visible[/absolute-33188-False]
+FAILED tests/test_boundaries.py::test_unsafe_uploads_never_become_visible[files/../escape-33188-False]
+FAILED tests/test_boundaries.py::test_unsafe_uploads_never_become_visible[files/a//b-33188-False]
+FAILED tests/test_boundaries.py::test_unsafe_uploads_never_become_visible[files/./b-33188-False]
+FAILED tests/test_boundaries.py::test_unsafe_uploads_never_become_visible[files/a\\b-33188-False]
+FAILED tests/test_boundaries.py::test_unsafe_uploads_never_become_visible[files/C:/escape-33188-False]
+FAILED tests/test_boundaries.py::test_unsafe_uploads_never_become_visible[files/a\x7fb-33188-False]
+FAILED tests/test_boundaries.py::test_unsafe_uploads_never_become_visible[files/link-41471-False]
+FAILED tests/test_boundaries.py::test_unsafe_uploads_never_become_visible[files/fifo-4516-False]
+FAILED tests/test_boundaries.py::test_unsafe_uploads_never_become_visible[files/duplicate-33188-True]
+10 failed, 2 warnings in 1.93s
+
+2026-10-11T15:54:15.547846+00:00 GREEN ['tests/test_boundaries.py'] exit=0
+..........                                                               [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+10 passed, 1 warning in 0.88s
+
+2026-10-11T15:54:16.093667+00:00 RED ['tests/test_boundaries.py::test_incomplete_invalid_and_conflicting_publications_are_rejected'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______ test_incomplete_invalid_and_conflicting_publications_are_rejected _______
+
+api = <starlette.testclient.TestClient object at 0x1081c2660>
+
+    def test_incomplete_invalid_and_conflicting_publications_are_rejected(api):
+        from test_nodes import bundle
+        node_meta = {'schema_version': 1, 'title': 'Invalid', 'summary': '', 'contributor': 'Alice'}
+        cases = [
+            ('nodes', b'not a zip'),
+            ('nodes', bundle(node_meta, {'files/a': b'x'})),
+            ('nodes', bundle({**node_meta, 'schema_version': 2}, {'memory.md': b'memory'})),
+            ('nodes', bundle({**node_meta, 'unexpected': 'secret'}, {'memory.md': b'memory'})),
+            ('nodes', bundle(node_meta, {'memory.md': b'\xff'})),
+            ('nodes', bundle(node_meta, {'memory.md': b'memory', 'private.txt': b'canary'})),
+            ('nodes', bundle(node_meta, {'memory.md': b'memory', 'files/a': b'x', 'files/a/b': b'y'})),
+            ('skills', bundle(node_meta, {'skill/scripts/run.py': b'print(1)'})),
+            ('skills', bundle(node_meta, {'skill/SKILL.md': b'# Method', 'private.txt': b'canary'})),
+            ('sources', bundle({**node_meta, 'filename': 'ref'}, {'files/ref': b'a', 'files/other': b'b'})),
+        ]
+        for number, (kind, content) in enumerate(cases):
+            response = publish(api, content, kind=kind, key=f'invalid-{number}')
+>           assert response.status_code == 422, response.text
+E           AssertionError: {"contributor":"Alice","created_at":"2026-10-11T15:54:15.923148+00:00","kind":"nodes","schema_version":1,"summary":"","title":"Invalid","id":"0ce2bd7bcd285cf9ec1a1a041009d90058e00474","parents":[],"files":[{"path":"a","size":1,"executable":false}]}
+E           assert 201 == 422
+E            +  where 201 = <Response [201 Created]>.status_code
+
+tests/test_boundaries.py:68: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_boundaries.py::test_incomplete_invalid_and_conflicting_publications_are_rejected
+1 failed, 1 warning in 0.25s
+
+2026-10-11T15:54:55.517495+00:00 GREEN ['tests/test_boundaries.py'] exit=0
+...........                                                              [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+11 passed, 1 warning in 1.35s
+
+2026-10-11T15:54:56.688488+00:00 RED ['tests/test_boundaries.py::test_configured_upload_limits_reject_without_publication'] exit=1
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_ test_configured_upload_limits_reject_without_publication[limit0-PK\x03\x04\x14\x00\x00\x00\x00\x00\xdc\xbeK]\xd2\x03\xff,\xa2\x00\x00\x00\xa2\x00\x00\x00\r\x00\x00\x00metadata.json{"schema_version": 1, "title": "Baseline", "summary": "Two observations; more trials needed.", "contributor": "Alice", "parents": [], "sources": [], "skills": []}PK\x03\x04\x14\x00\x00\x00\x00\x00\x00\x00!\x00\x16\x8c\xfb\xf1\x1d\x00\x00\x00\x1d\x00\x00\x00\t\x00\x00\x00memory.md# Goal\nCompare measurements.\nPK\x03\x04\x14\x00\x00\x00\x00\x00\x00\x00!\x00#\xdfr\x00\x08\x00\x00\x00\x08\x00\x00\x00\x11\x00\x00\x00files/results.csvx,y\n1,2\nPK\x01\x02\x14\x03\x14\x00\x00\x00\x00\x00\xdc\xbeK]\xd2\x03\xff,\xa2\x00\x00\x00\xa2\x00\x00\x00\r\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x80\x01\x00\x00\x00\x00metadata.jsonPK\x01\x02\x14\x03\x14\x00\x00\x00\x00\x00\x00\x00!\x00\x16\x8c\xfb\xf1\x1d\x00\x00\x00\x1d\x00\x00\x00\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xa4\x81\xcd\x00\x00\x00memory.mdPK\x01\x02\x14\x03\x14\x00\x00\x00\x00\x00\x00\x00!\x00#\xdfr\x00\x08\x00\x00\x00\x08\x00\x00\x00\x11\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xa4\x81\x11\x01\x00\x00files/results.csvPK\x05\x06\x00\x00\x00\x00\x03\x00\x03\x00\xb1\x00\x00\x00H\x01\x00\x00\x00\x00] _
+
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-22/test_configured_upload_limits_0')
+limit = {'max_upload_bytes': 50}
+content = b'PK\x03\x04\x14\x00\x00\x00\x00\x00\xdc\xbeK]\xd2\x03\xff,\xa2\x00\x00\x00\xa2\x00\x00\x00\r\x00\x00\x00metadata.json...a4\x81\x11\x01\x00\x00files/results.csvPK\x05\x06\x00\x00\x00\x00\x03\x00\x03\x00\xb1\x00\x00\x00H\x01\x00\x00\x00\x00'
+
+    @pytest.mark.parametrize('limit,content', [
+        ({'max_upload_bytes': 50}, node_bundle()),
+        ({'max_unpacked_bytes': 50}, node_bundle()),
+        ({'max_entries': 2}, node_bundle()),
+    ])
+    def test_configured_upload_limits_reject_without_publication(tmp_path, limit, content):
+        from fastapi.testclient import TestClient
+        from conftest import CONFIG
+        from sharey.server import create_app
+        with TestClient(create_app(tmp_path / 'limited', {**CONFIG, 'limits': limit})) as client:
+            response = publish(client, content)
+>           assert response.status_code == 413, response.text
+E           AssertionError: {"contributor":"Alice","created_at":"2026-10-11T15:54:56.154196+00:00","kind":"nodes","parents":[],"provenance":[],"schema_version":1,"skills":[],"sources":[],"summary":"Two observations; more trials needed.","title":"Baseline","id":"98e2cd93874a10045ac06733ba48f6fffd3bf021","files":[{"path":"results.csv","size":8,"executable":false}]}
+E           assert 201 == 413
+E            +  where 201 = <Response [201 Created]>.status_code
+
+tests/test_boundaries.py:85: AssertionError
+_ test_configured_upload_limits_reject_without_publication[limit1-PK\x03\x04\x14\x00\x00\x00\x00\x00\xdc\xbeK]\xd2\x03\xff,\xa2\x00\x00\x00\xa2\x00\x00\x00\r\x00\x00\x00metadata.json{"schema_version": 1, "title": "Baseline", "summary": "Two observations; more trials needed.", "contributor": "Alice", "parents": [], "sources": [], "skills": []}PK\x03\x04\x14\x00\x00\x00\x00\x00\x00\x00!\x00\x16\x8c\xfb\xf1\x1d\x00\x00\x00\x1d\x00\x00\x00\t\x00\x00\x00memory.md# Goal\nCompare measurements.\nPK\x03\x04\x14\x00\x00\x00\x00\x00\x00\x00!\x00#\xdfr\x00\x08\x00\x00\x00\x08\x00\x00\x00\x11\x00\x00\x00files/results.csvx,y\n1,2\nPK\x01\x02\x14\x03\x14\x00\x00\x00\x00\x00\xdc\xbeK]\xd2\x03\xff,\xa2\x00\x00\x00\xa2\x00\x00\x00\r\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x80\x01\x00\x00\x00\x00metadata.jsonPK\x01\x02\x14\x03\x14\x00\x00\x00\x00\x00\x00\x00!\x00\x16\x8c\xfb\xf1\x1d\x00\x00\x00\x1d\x00\x00\x00\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xa4\x81\xcd\x00\x00\x00memory.mdPK\x01\x02\x14\x03\x14\x00\x00\x00\x00\x00\x00\x00!\x00#\xdfr\x00\x08\x00\x00\x00\x08\x00\x00\x00\x11\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xa4\x81\x11\x01\x00\x00files/results.csvPK\x05\x06\x00\x00\x00\x00\x03\x00\x03\x00\xb1\x00\x00\x00H\x01\x00\x00\x00\x00] _
+
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-22/test_configured_upload_limits_1')
+limit = {'max_unpacked_bytes': 50}
+content = b'PK\x03\x04\x14\x00\x00\x00\x00\x00\xdc\xbeK]\xd2\x03\xff,\xa2\x00\x00\x00\xa2\x00\x00\x00\r\x00\x00\x00metadata.json...a4\x81\x11\x01\x00\x00files/results.csvPK\x05\x06\x00\x00\x00\x00\x03\x00\x03\x00\xb1\x00\x00\x00H\x01\x00\x00\x00\x00'
+
+    @pytest.mark.parametrize('limit,content', [
+        ({'max_upload_bytes': 50}, node_bundle()),
+        ({'max_unpacked_bytes': 50}, node_bundle()),
+        ({'max_entries': 2}, node_bundle()),
+    ])
+    def test_configured_upload_limits_reject_without_publication(tmp_path, limit, content):
+        from fastapi.testclient import TestClient
+        from conftest import CONFIG
+        from sharey.server import create_app
+        with TestClient(create_app(tmp_path / 'limited', {**CONFIG, 'limits': limit})) as client:
+            response = publish(client, content)
+>           assert response.status_code == 413, response.text
+E           AssertionError: {"contributor":"Alice","created_at":"2026-10-11T15:54:56.330263+00:00","kind":"nodes","parents":[],"provenance":[],"schema_version":1,"skills":[],"sources":[],"summary":"Two observations; more trials needed.","title":"Baseline","id":"73a68eee476154921890bea75f2b12a87bbb7b6c","files":[{"path":"results.csv","size":8,"executable":false}]}
+E           assert 201 == 413
+E            +  where 201 = <Response [201 Created]>.status_code
+
+tests/test_boundaries.py:85: AssertionError
+_ test_configured_upload_limits_reject_without_publication[limit2-PK\x03\x04\x14\x00\x00\x00\x00\x00\xdc\xbeK]\xd2\x03\xff,\xa2\x00\x00\x00\xa2\x00\x00\x00\r\x00\x00\x00metadata.json{"schema_version": 1, "title": "Baseline", "summary": "Two observations; more trials needed.", "contributor": "Alice", "parents": [], "sources": [], "skills": []}PK\x03\x04\x14\x00\x00\x00\x00\x00\x00\x00!\x00\x16\x8c\xfb\xf1\x1d\x00\x00\x00\x1d\x00\x00\x00\t\x00\x00\x00memory.md# Goal\nCompare measurements.\nPK\x03\x04\x14\x00\x00\x00\x00\x00\x00\x00!\x00#\xdfr\x00\x08\x00\x00\x00\x08\x00\x00\x00\x11\x00\x00\x00files/results.csvx,y\n1,2\nPK\x01\x02\x14\x03\x14\x00\x00\x00\x00\x00\xdc\xbeK]\xd2\x03\xff,\xa2\x00\x00\x00\xa2\x00\x00\x00\r\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x80\x01\x00\x00\x00\x00metadata.jsonPK\x01\x02\x14\x03\x14\x00\x00\x00\x00\x00\x00\x00!\x00\x16\x8c\xfb\xf1\x1d\x00\x00\x00\x1d\x00\x00\x00\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xa4\x81\xcd\x00\x00\x00memory.mdPK\x01\x02\x14\x03\x14\x00\x00\x00\x00\x00\x00\x00!\x00#\xdfr\x00\x08\x00\x00\x00\x08\x00\x00\x00\x11\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xa4\x81\x11\x01\x00\x00files/results.csvPK\x05\x06\x00\x00\x00\x00\x03\x00\x03\x00\xb1\x00\x00\x00H\x01\x00\x00\x00\x00] _
+
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-22/test_configured_upload_limits_2')
+limit = {'max_entries': 2}
+content = b'PK\x03\x04\x14\x00\x00\x00\x00\x00\xdc\xbeK]\xd2\x03\xff,\xa2\x00\x00\x00\xa2\x00\x00\x00\r\x00\x00\x00metadata.json...a4\x81\x11\x01\x00\x00files/results.csvPK\x05\x06\x00\x00\x00\x00\x03\x00\x03\x00\xb1\x00\x00\x00H\x01\x00\x00\x00\x00'
+
+    @pytest.mark.parametrize('limit,content', [
+        ({'max_upload_bytes': 50}, node_bundle()),
+        ({'max_unpacked_bytes': 50}, node_bundle()),
+        ({'max_entries': 2}, node_bundle()),
+    ])
+    def test_configured_upload_limits_reject_without_publication(tmp_path, limit, content):
+        from fastapi.testclient import TestClient
+        from conftest import CONFIG
+        from sharey.server import create_app
+        with TestClient(create_app(tmp_path / 'limited', {**CONFIG, 'limits': limit})) as client:
+            response = publish(client, content)
+>           assert response.status_code == 413, response.text
+E           AssertionError: {"contributor":"Alice","created_at":"2026-10-11T15:54:56.509025+00:00","kind":"nodes","parents":[],"provenance":[],"schema_version":1,"skills":[],"sources":[],"summary":"Two observations; more trials needed.","title":"Baseline","id":"8390b4f7413956551ae8bb1010dbae49faa90c8f","files":[{"path":"results.csv","size":8,"executable":false}]}
+E           assert 201 == 413
+E            +  where 201 = <Response [201 Created]>.status_code
+
+tests/test_boundaries.py:85: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_boundaries.py::test_configured_upload_limits_reject_without_publication[limit0-PK\x03\x04\x14\x00\x00\x00\x00\x00\xdc\xbeK]\xd2\x03\xff,\xa2\x00\x00\x00\xa2\x00\x00\x00\r\x00\x00\x00metadata.json{"schema_version": 1, "title": "Baseline", "summary": "Two observations; more trials needed.", "contributor": "Alice", "parents": [], "sources": [], "skills": []}PK\x03\x04\x14\x00\x00\x00\x00\x00\x00\x00!\x00\x16\x8c\xfb\xf1\x1d\x00\x00\x00\x1d\x00\x00\x00\t\x00\x00\x00memory.md# Goal\nCompare measurements.\nPK\x03\x04\x14\x00\x00\x00\x00\x00\x00\x00!\x00#\xdfr\x00\x08\x00\x00\x00\x08\x00\x00\x00\x11\x00\x00\x00files/results.csvx,y\n1,2\nPK\x01\x02\x14\x03\x14\x00\x00\x00\x00\x00\xdc\xbeK]\xd2\x03\xff,\xa2\x00\x00\x00\xa2\x00\x00\x00\r\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x80\x01\x00\x00\x00\x00metadata.jsonPK\x01\x02\x14\x03\x14\x00\x00\x00\x00\x00\x00\x00!\x00\x16\x8c\xfb\xf1\x1d\x00\x00\x00\x1d\x00\x00\x00\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xa4\x81\xcd\x00\x00\x00memory.mdPK\x01\x02\x14\x03\x14\x00\x00\x00\x00\x00\x00\x00!\x00#\xdfr\x00\x08\x00\x00\x00\x08\x00\x00\x00\x11\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xa4\x81\x11\x01\x00\x00files/results.csvPK\x05\x06\x00\x00\x00\x00\x03\x00\x03\x00\xb1\x00\x00\x00H\x01\x00\x00\x00\x00]
+FAILED tests/test_boundaries.py::test_configured_upload_limits_reject_without_publication[limit1-PK\x03\x04\x14\x00\x00\x00\x00\x00\xdc\xbeK]\xd2\x03\xff,\xa2\x00\x00\x00\xa2\x00\x00\x00\r\x00\x00\x00metadata.json{"schema_version": 1, "title": "Baseline", "summary": "Two observations; more trials needed.", "contributor": "Alice", "parents": [], "sources": [], "skills": []}PK\x03\x04\x14\x00\x00\x00\x00\x00\x00\x00!\x00\x16\x8c\xfb\xf1\x1d\x00\x00\x00\x1d\x00\x00\x00\t\x00\x00\x00memory.md# Goal\nCompare measurements.\nPK\x03\x04\x14\x00\x00\x00\x00\x00\x00\x00!\x00#\xdfr\x00\x08\x00\x00\x00\x08\x00\x00\x00\x11\x00\x00\x00files/results.csvx,y\n1,2\nPK\x01\x02\x14\x03\x14\x00\x00\x00\x00\x00\xdc\xbeK]\xd2\x03\xff,\xa2\x00\x00\x00\xa2\x00\x00\x00\r\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x80\x01\x00\x00\x00\x00metadata.jsonPK\x01\x02\x14\x03\x14\x00\x00\x00\x00\x00\x00\x00!\x00\x16\x8c\xfb\xf1\x1d\x00\x00\x00\x1d\x00\x00\x00\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xa4\x81\xcd\x00\x00\x00memory.mdPK\x01\x02\x14\x03\x14\x00\x00\x00\x00\x00\x00\x00!\x00#\xdfr\x00\x08\x00\x00\x00\x08\x00\x00\x00\x11\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xa4\x81\x11\x01\x00\x00files/results.csvPK\x05\x06\x00\x00\x00\x00\x03\x00\x03\x00\xb1\x00\x00\x00H\x01\x00\x00\x00\x00]
+FAILED tests/test_boundaries.py::test_configured_upload_limits_reject_without_publication[limit2-PK\x03\x04\x14\x00\x00\x00\x00\x00\xdc\xbeK]\xd2\x03\xff,\xa2\x00\x00\x00\xa2\x00\x00\x00\r\x00\x00\x00metadata.json{"schema_version": 1, "title": "Baseline", "summary": "Two observations; more trials needed.", "contributor": "Alice", "parents": [], "sources": [], "skills": []}PK\x03\x04\x14\x00\x00\x00\x00\x00\x00\x00!\x00\x16\x8c\xfb\xf1\x1d\x00\x00\x00\x1d\x00\x00\x00\t\x00\x00\x00memory.md# Goal\nCompare measurements.\nPK\x03\x04\x14\x00\x00\x00\x00\x00\x00\x00!\x00#\xdfr\x00\x08\x00\x00\x00\x08\x00\x00\x00\x11\x00\x00\x00files/results.csvx,y\n1,2\nPK\x01\x02\x14\x03\x14\x00\x00\x00\x00\x00\xdc\xbeK]\xd2\x03\xff,\xa2\x00\x00\x00\xa2\x00\x00\x00\r\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x80\x01\x00\x00\x00\x00metadata.jsonPK\x01\x02\x14\x03\x14\x00\x00\x00\x00\x00\x00\x00!\x00\x16\x8c\xfb\xf1\x1d\x00\x00\x00\x1d\x00\x00\x00\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xa4\x81\xcd\x00\x00\x00memory.mdPK\x01\x02\x14\x03\x14\x00\x00\x00\x00\x00\x00\x00!\x00#\xdfr\x00\x08\x00\x00\x00\x08\x00\x00\x00\x11\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xa4\x81\x11\x01\x00\x00files/results.csvPK\x05\x06\x00\x00\x00\x00\x03\x00\x03\x00\xb1\x00\x00\x00H\x01\x00\x00\x00\x00]
+3 failed, 1 warning in 0.57s
+
+2026-10-11T15:55:27.914262+00:00 GREEN ['tests/test_boundaries.py'] exit=0
+..............                                                           [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+14 passed, 1 warning in 1.80s
+
+2026-10-11T15:56:01.999373+00:00 RED ['tests/test_boundaries.py::test_cli_rejects_ambiguous_or_nonregular_selected_files[link]'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+________ test_cli_rejects_ambiguous_or_nonregular_selected_files[link] _________
+
+service = <conftest.LiveService object at 0x107ace510>
+cli = <function cli.<locals>.run at 0x107c1a8e0>
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-24/test_cli_rejects_ambiguous_or_0')
+selected = 'link'
+
+    @pytest.mark.parametrize('selected', ['link', 'linked-parent', 'fifo', 'duplicate'])
+    def test_cli_rejects_ambiguous_or_nonregular_selected_files(service, cli, tmp_path, selected):
+        import os
+        work = tmp_path / 'work'
+        work.mkdir()
+        (work / 'memory.md').write_text('Research memory')
+        (work / 'private.txt').write_text('PRIVATE-CANARY')
+        (work / 'dir').mkdir()
+        (work / 'dir/data.txt').write_text('PRIVATE-CANARY')
+        (work / 'link').symlink_to('private.txt')
+        (work / 'linked-parent').symlink_to('dir', target_is_directory=True)
+        os.mkfifo(work / 'fifo')
+        source = 'linked-parent/data.txt' if selected == 'linked-parent' else selected
+        files = [{'source': source, 'path': 'data.txt'}]
+        if selected == 'duplicate':
+            files = [{'source': 'private.txt', 'path': 'same'}, {'source': 'memory.md', 'path': 'same'}]
+        (work / 'publish.json').write_text(json.dumps({
+            'schema_version': 1, 'title': 'Unsafe selection', 'summary': '', 'contributor': 'Alice',
+            'memory': 'memory.md', 'files': files,
+        }))
+        result = cli(service, work, 'publish', 'node', '--manifest', 'publish.json', '--key', 'unsafe')
+>       assert result.returncode != 0
+E       assert 0 != 0
+E        +  where 0 = CompletedProcess(args=['/Users/beiyanliu/Desktop/sharey/.venv/bin/python', '-m', 'sharey.cli', 'publish', 'node', '--m...2efcdc1309a20ae7a86977be376816368fff", "files": [{"path": "data.txt", "size": 14, "executable": false}]}\n', stderr='').returncode
+
+tests/test_boundaries.py:110: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_boundaries.py::test_cli_rejects_ambiguous_or_nonregular_selected_files[link]
+1 failed, 1 warning in 0.71s
+
+2026-10-11T15:57:01.399549+00:00 GREEN ['tests/test_boundaries.py::test_cli_rejects_ambiguous_or_nonregular_selected_files'] exit=0
+....                                                                     [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+4 passed, 1 warning in 2.50s
+
+2026-10-11T15:57:03.937818+00:00 RED ['tests/test_boundaries.py::test_dirty_and_untracked_publication_preserves_original_git_and_truthful_provenance'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_dirty_and_untracked_publication_preserves_original_git_and_truthful_provenance _
+
+service = <conftest.LiveService object at 0x109dd64e0>
+cli = <function cli.<locals>.run at 0x109e71f80>
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-26/test_dirty_and_untracked_publi0')
+
+    def test_dirty_and_untracked_publication_preserves_original_git_and_truthful_provenance(service, cli, tmp_path):
+        import hashlib
+        import subprocess
+        work = tmp_path / 'research'
+        work.mkdir()
+        def git(*args):
+            return subprocess.run(['git', '-C', str(work), *args], capture_output=True, check=True).stdout
+        git('init')
+        git('config', 'user.name', 'Researcher')
+        git('config', 'user.email', 'researcher@example.invalid')
+        git('remote', 'add', 'origin', 'https://secret-token@example.invalid/private/research.git')
+        (work / 'tracked.txt').write_bytes(b'baseline\n')
+        git('add', 'tracked.txt')
+        git('commit', '-m', 'baseline')
+        baseline = git('rev-parse', 'HEAD').decode().strip()
+        (work / 'tracked.txt').write_bytes(b'dirty-current\n')
+        (work / 'untracked.bin').write_bytes(b'\x00untracked\xff')
+        (work / 'private.txt').write_bytes(b'PRIVATE-CANARY')
+        (work / '.gitignore').write_text('untracked.bin\n')
+        (work / 'memory.md').write_text('Explicit memory; no chat history.')
+        (work / 'publish.json').write_text(json.dumps({
+            'schema_version': 1, 'title': 'Current work', 'summary': 'Dirty and untracked.',
+            'contributor': 'Alice', 'memory': 'memory.md',
+            'files': [{'source': 'tracked.txt', 'path': 'tracked.txt'}, {'source': 'untracked.bin', 'path': 'untracked.bin'}],
+        }))
+        before = {path.relative_to(work).as_posix(): path.read_bytes() for path in work.rglob('*') if path.is_file()}
+        result = cli(service, work, 'publish', 'node', '--manifest', 'publish.json', '--key', 'dirty')
+        assert result.returncode == 0, result.stderr
+        after = {path.relative_to(work).as_posix(): path.read_bytes() for path in work.rglob('*') if path.is_file()}
+        assert before == after
+        metadata = json.loads(result.stdout)
+        assert metadata['parents'] == []
+        assert {entry['path'] for entry in metadata['files']} == {'tracked.txt', 'untracked.bin'}
+        provenance = {entry['path']: entry for entry in metadata['provenance']}
+>       assert provenance['tracked.txt']['sha256'] == hashlib.sha256(b'dirty-current\n').hexdigest()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'tracked.txt'
+
+tests/test_boundaries.py:150: KeyError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_boundaries.py::test_dirty_and_untracked_publication_preserves_original_git_and_truthful_provenance
+1 failed, 1 warning in 0.99s
+
+2026-10-11T15:57:46.711628+00:00 GREEN ['tests/test_boundaries.py::test_dirty_and_untracked_publication_preserves_original_git_and_truthful_provenance'] exit=0
+.                                                                        [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 1.00s
+
+2026-10-11T15:58:14.222714+00:00 RED ['tests/test_boundaries.py::test_cli_validates_download_archive_before_writing[link-41471-False]'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____ test_cli_validates_download_archive_before_writing[link-41471-False] _____
+
+service = <conftest.LiveService object at 0x109f0ab40>
+cli = <function cli.<locals>.run at 0x109fea2a0>
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-28/test_cli_validates_download_ar0')
+name = 'link', mode = 41471, duplicate = False
+
+    @pytest.mark.parametrize('name,mode,duplicate', [
+        ('link', stat.S_IFLNK | 0o777, False),
+        ('repeat', stat.S_IFREG | 0o644, True),
+        ('../escape', stat.S_IFREG | 0o644, False),
+    ])
+    def test_cli_validates_download_archive_before_writing(service, cli, tmp_path, name, mode, duplicate):
+        import http.server
+        import threading
+        from types import SimpleNamespace
+        content = unsafe_bundle(name, mode, duplicate)
+        class Handler(http.server.BaseHTTPRequestHandler):
+            def do_GET(self):
+                self.send_response(200)
+                self.end_headers()
+                self.wfile.write(content)
+            def log_message(self, *args):
+                pass
+        server = http.server.ThreadingHTTPServer(('127.0.0.1', 0), Handler)
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        fake_service = SimpleNamespace(url=f'http://127.0.0.1:{server.server_port}')
+        try:
+            result = cli(fake_service, tmp_path, 'get', 'skill', 'f' * 40, '--out', 'received')
+>           assert result.returncode != 0
+E           assert 0 != 0
+E            +  where 0 = CompletedProcess(args=['/Users/beiyanliu/Desktop/sharey/.venv/bin/python', '-m', 'sharey.cli', 'get', 'skill', 'ffffff...'received'], returncode=0, stdout='{"out": "received", "id": "ffffffffffffffffffffffffffffffffffffffff"}\n', stderr='').returncode
+
+tests/test_boundaries.py:183: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_boundaries.py::test_cli_validates_download_archive_before_writing[link-41471-False]
+1 failed, 1 warning in 1.05s
+
+2026-10-11T15:58:57.905200+00:00 GREEN ['tests/test_boundaries.py::test_cli_validates_download_archive_before_writing', 'tests/test_boundaries.py::test_dirty_and_untracked_publication_preserves_original_git_and_truthful_provenance'] exit=0
+....                                                                     [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+4 passed, 1 warning in 4.10s
+
+2026-10-11T15:58:59.379560+00:00 GREEN ['tests/test_boundaries.py::test_client_without_git_publishes_explicit_files_and_keeps_private_content_local'] exit=0
+.                                                                        [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 0.89s
+
+2026-10-11T15:59:29.152033+00:00 GREEN ['tests/test_project.py'] exit=0
+...                                                                      [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+3 passed, 1 warning in 0.16s
+
+2026-10-11T15:59:29.660416+00:00 RED ['tests/test_boundaries.py::test_invalid_request_key_content_type_and_configuration_fail_cleanly'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____ test_invalid_request_key_content_type_and_configuration_fail_cleanly _____
+
+api = <starlette.testclient.TestClient object at 0x10c425d00>
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-32/test_invalid_request_key_conte0')
+
+    def test_invalid_request_key_content_type_and_configuration_fail_cleanly(api, tmp_path):
+        from sharey.server import create_app
+        for key in ('', 'x' * 129, 'bad key'):
+            response = publish(api, node_bundle(), key=key)
+>           assert response.status_code == 422
+E           assert 201 == 422
+E            +  where 201 = <Response [201 Created]>.status_code
+
+tests/test_boundaries.py:221: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_boundaries.py::test_invalid_request_key_content_type_and_configuration_fail_cleanly
+1 failed, 1 warning in 0.21s
+
+2026-10-11T15:59:48.921690+00:00 GREEN ['tests/test_boundaries.py::test_invalid_request_key_content_type_and_configuration_fail_cleanly'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____ test_invalid_request_key_content_type_and_configuration_fail_cleanly _____
+
+api = <starlette.testclient.TestClient object at 0x109dbec60>
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-33/test_invalid_request_key_conte0')
+
+    def test_invalid_request_key_content_type_and_configuration_fail_cleanly(api, tmp_path):
+        from sharey.server import create_app
+        for key in ('', 'x' * 129, 'bad key'):
+            response = publish(api, node_bundle(), key=key)
+>           assert response.status_code == 422
+E           assert 201 == 422
+E            +  where 201 = <Response [201 Created]>.status_code
+
+tests/test_boundaries.py:221: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_boundaries.py::test_invalid_request_key_content_type_and_configuration_fail_cleanly
+1 failed, 1 warning in 0.22s
+
+2026-10-11T16:00:01.619111+00:00 GREEN ['tests/test_boundaries.py::test_invalid_request_key_content_type_and_configuration_fail_cleanly'] exit=0
+.                                                                        [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 0.07s
+
+2026-10-11T16:00:31.611765+00:00 RED ['tests/test_durability.py'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____ test_retry_returns_original_publication_and_changed_content_conflicts _____
+
+api = <starlette.testclient.TestClient object at 0x10b7829f0>
+
+    def test_retry_returns_original_publication_and_changed_content_conflicts(api):
+        first = publish(api, node_bundle(), key='stable')
+        assert first.status_code == 201
+        retry = publish(api, node_bundle(), key='stable')
+>       assert retry.status_code == 201
+E       assert 500 == 201
+E        +  where 500 = <Response [500 Internal Server Error]>.status_code
+
+tests/test_durability.py:13: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_durability.py::test_retry_returns_original_publication_and_changed_content_conflicts
+1 failed, 1 warning in 0.27s
+
+2026-10-11T16:00:58.876725+00:00 GREEN ['tests/test_durability.py'] exit=0
+.                                                                        [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 0.33s
+
+2026-10-11T16:01:00.053769+00:00 RED ['tests/test_durability.py::test_simultaneous_retries_and_distinct_branches_survive_real_http'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______ test_simultaneous_retries_and_distinct_branches_survive_real_http _______
+
+service = <conftest.LiveService object at 0x10971ab40>
+
+    def test_simultaneous_retries_and_distinct_branches_survive_real_http(service):
+        base = service.url + '/projects/demo'
+        def post(content, key):
+            return httpx.post(base + '/nodes', content=content, headers={
+                **AUTH, 'Content-Type': 'application/zip', 'Idempotency-Key': key}, timeout=20)
+        root = post(node_bundle(), 'root').json()['id']
+        same = node_bundle('Concurrent', parents=[root])
+        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
+            retries = list(pool.map(lambda _: post(same, 'same'), range(8)))
+>       assert all(response.status_code == 201 for response in retries), [(r.status_code, r.text) for r in retries]
+E       AssertionError: [(500, '{"detail":"Git storage operation failed"}'), (500, '{"detail":"Git storage operation failed"}'), (500, '{"deta...ailed"}'), (500, '{"detail":"Git storage operation failed"}'), (500, '{"detail":"Git storage operation failed"}'), ...]
+E       assert False
+E        +  where False = all(<generator object test_simultaneous_retries_and_distinct_branches_survive_real_http.<locals>.<genexpr> at 0x109842810>)
+
+tests/test_durability.py:29: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_durability.py::test_simultaneous_retries_and_distinct_branches_survive_real_http
+1 failed, 1 warning in 0.85s
+
+2026-10-11T16:01:26.229523+00:00 GREEN ['tests/test_durability.py'] exit=0
+..                                                                       [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2 passed, 1 warning in 2.44s
+
+2026-10-11T16:02:19.497975+00:00 GREEN ['tests/test_durability.py::test_real_process_restart_keeps_assets_dag_bytes_and_retry_identity'] exit=0
+.                                                                        [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 2.19s
+
+2026-10-11T16:02:24.743750+00:00 RED ['tests/test_durability.py::test_process_interruption_never_exposes_half_publication_and_retry_recovers[before-ref-False]'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_process_interruption_never_exposes_half_publication_and_retry_recovers[before-ref-False] _
+
+service = <conftest.LiveService object at 0x10bfaad20>
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-40/test_process_interruption_neve0')
+stage = 'before-ref', visible_before_kill = False
+
+    @pytest.mark.parametrize('stage,visible_before_kill', [
+        ('during-objects', False), ('before-ref', False), ('after-ref', True),
+    ])
+    def test_process_interruption_never_exposes_half_publication_and_retry_recovers(service, tmp_path, stage, visible_before_kill):
+        import json
+        import time
+        root = httpx.post(service.url + '/projects/demo/nodes', content=node_bundle(), headers={
+            **AUTH, 'Content-Type': 'application/zip', 'Idempotency-Key': 'root'}).json()['id']
+        service.stop()
+        markers = tmp_path / 'faults'
+        service.start({'SHAREY_TEST_FAULT_DIR': str(markers), 'SHAREY_TEST_PAUSE_STAGE': stage,
+                       'SHAREY_TEST_PAUSE_KEY': 'interrupted'})
+        payload = node_bundle('Interrupted', parents=[root])
+        def interrupted_request():
+            try:
+                return httpx.post(service.url + '/projects/demo/nodes', content=payload, headers={
+                    **AUTH, 'Content-Type': 'application/zip', 'Idempotency-Key': 'interrupted'}, timeout=15)
+            except httpx.HTTPError:
+                return None
+        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
+            pending = pool.submit(interrupted_request)
+            marker = markers / f'{stage}.json'
+            deadline = time.monotonic() + 4
+            while not marker.exists() and time.monotonic() < deadline:
+                time.sleep(0.02)
+            try:
+>               assert marker.exists(), 'Controlled publication stage was not reached'
+E               AssertionError: Controlled publication stage was not reached
+E               assert False
+E                +  where False = exists()
+E                +    where exists = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-40/test_process_interruption_neve0/faults/before-ref.json').exists
+
+tests/test_durability.py:97: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_durability.py::test_process_interruption_never_exposes_half_publication_and_retry_recovers[before-ref-False]
+1 failed, 1 warning in 4.93s
+
+2026-10-11T16:02:47.981378+00:00 GREEN ['tests/test_durability.py::test_process_interruption_never_exposes_half_publication_and_retry_recovers'] exit=0
+...                                                                      [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+3 passed, 1 warning in 6.55s
+
+2026-10-11T16:03:11.667603+00:00 RED ['tests/test_durability.py::test_startup_recovers_stale_git_ref_locks_after_process_exit'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________ test_startup_recovers_stale_git_ref_locks_after_process_exit _________
+
+service = <conftest.LiveService object at 0x109d606e0>
+
+    def test_startup_recovers_stale_git_ref_locks_after_process_exit(service):
+        import hashlib
+        key = 'after-stale-lock'
+        ref = service.data / 'demo.git/refs/sharey/nodes' / (hashlib.sha256(key.encode()).hexdigest() + '.lock')
+        service.stop(kill=True)
+        ref.parent.mkdir(parents=True, exist_ok=True)
+        ref.write_bytes(b'incomplete-ref-write')
+        service.start()
+        response = httpx.post(service.url + '/projects/demo/nodes', content=node_bundle(), headers={
+            **AUTH, 'Content-Type': 'application/zip', 'Idempotency-Key': key})
+>       assert response.status_code == 201, response.text
+E       AssertionError: {"detail":"Git storage operation failed"}
+E       assert 500 == 201
+E        +  where 500 = <Response [500 Internal Server Error]>.status_code
+
+tests/test_durability.py:132: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_durability.py::test_startup_recovers_stale_git_ref_locks_after_process_exit
+1 failed, 1 warning in 0.86s
+
+2026-10-11T16:03:47.294208+00:00 GREEN ['tests/test_durability.py::test_startup_recovers_stale_git_ref_locks_after_process_exit', 'tests/test_durability.py::test_process_interruption_never_exposes_half_publication_and_retry_recovers'] exit=0
+....                                                                     [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+4 passed, 1 warning in 8.03s
+
+2026-10-11T16:04:23.619566+00:00 GREEN ['tests/test_durability.py::test_second_service_cannot_take_live_data_directory', 'tests/test_durability.py::test_concurrent_different_content_on_same_key_has_one_winner'] exit=0
+..                                                                       [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2 passed, 1 warning in 1.58s
+
+2026-10-11T16:05:19.042711+00:00 RED ['tests/test_workflow.py'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_fixed_two_workspace_workflow_runs_downloaded_skill_and_records_full_dag _
+
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-45/test_fixed_two_workspace_workf0')
+
+    def test_fixed_two_workspace_workflow_runs_downloaded_skill_and_records_full_dag(tmp_path):
+        output = tmp_path / 'acceptance'
+        completed = subprocess.run(
+            [sys.executable, str(ROOT / 'scripts/run_acceptance.py'), '--out', str(output)],
+            cwd=tmp_path, capture_output=True, text=True, timeout=90,
+        )
+>       assert completed.returncode == 0, completed.stderr + completed.stdout
+E       AssertionError: /Users/beiyanliu/Desktop/sharey/.venv/bin/python: can't open file '/Users/beiyanliu/Desktop/sharey/scripts/run_acceptance.py': [Errno 2] No such file or directory
+E         
+E       assert 2 == 0
+E        +  where 2 = CompletedProcess(args=['/Users/beiyanliu/Desktop/sharey/.venv/bin/python', '/Users/beiyanliu/Desktop/sharey/scripts/ru...n: can't open file '/Users/beiyanliu/Desktop/sharey/scripts/run_acceptance.py': [Errno 2] No such file or directory\n").returncode
+
+tests/test_workflow.py:15: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_workflow.py::test_fixed_two_workspace_workflow_runs_downloaded_skill_and_records_full_dag
+1 failed, 1 warning in 0.04s
+
+2026-10-11T16:09:02.199831+00:00 GREEN ['tests/test_workflow.py'] exit=0
+.                                                                        [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 7.65s
+
+2026-10-11T16:13:25.850872+00:00 RED ['tests/test_cli.py::test_single_file_download_restores_selected_execution_mark'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__________ test_single_file_download_restores_selected_execution_mark __________
+
+service = <conftest.LiveService object at 0x10be939e0>
+cli = <function cli.<locals>.run at 0x10c031d00>
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-47/test_single_file_download_rest0')
+
+    def test_single_file_download_restores_selected_execution_mark(service, cli, tmp_path):
+        work = tmp_path / 'work'
+        work.mkdir()
+        (work / 'memory.md').write_text('Runnable helper')
+        (work / 'helper.sh').write_text('#!/bin/sh\nprintf hello\n')
+        (work / 'helper.sh').chmod(0o755)
+        (work / 'manifest.json').write_text(json.dumps({
+            'schema_version': 1, 'title': 'Helper', 'summary': '', 'contributor': 'Alice',
+            'memory': 'memory.md', 'files': [{'source': 'helper.sh', 'path': 'helper.sh'}]}))
+        result = cli(service, work, 'publish', 'node', '--manifest', 'manifest.json', '--key', 'helper')
+        assert result.returncode == 0, result.stderr
+        oid = json.loads(result.stdout)['id']
+        result = cli(service, work, 'get', 'file', oid, 'helper.sh', '--out', 'received.sh')
+        assert result.returncode == 0, result.stderr
+        assert (work / 'received.sh').read_bytes() == b'#!/bin/sh\nprintf hello\n'
+>       assert (work / 'received.sh').stat().st_mode & 0o111
+E       AssertionError: assert (33188 & 73)
+E        +  where 33188 = os.stat_result(st_mode=33188, st_ino=38620880, st_dev=16777231, st_nlink=1, st_uid=501, st_gid=20, st_size=23, st_atime=1791735205, st_mtime=1791735205, st_ctime=1791735205).st_mode
+E        +    where os.stat_result(st_mode=33188, st_ino=38620880, st_dev=16777231, st_nlink=1, st_uid=501, st_gid=20, st_size=23, st_atime=1791735205, st_mtime=1791735205, st_ctime=1791735205) = stat()
+E        +      where stat = (PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-47/test_single_file_download_rest0/work') / 'received.sh').stat
+
+tests/test_cli.py:94: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_cli.py::test_single_file_download_restores_selected_execution_mark
+1 failed, 1 warning in 0.86s
+
+2026-10-11T16:13:53.835054+00:00 GREEN ['tests/test_cli.py::test_single_file_download_restores_selected_execution_mark'] exit=0
+.                                                                        [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 0.82s
+
+2026-10-11T16:13:54.988102+00:00 RED ['tests/test_boundaries.py::test_provenance_tracks_nested_clean_files_against_correct_git_base'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______ test_provenance_tracks_nested_clean_files_against_correct_git_base ______
+
+service = <conftest.LiveService object at 0x10bca19d0>
+cli = <function cli.<locals>.run at 0x10be06520>
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-49/test_provenance_tracks_nested_0')
+
+    def test_provenance_tracks_nested_clean_files_against_correct_git_base(service, cli, tmp_path):
+        import subprocess
+        work = tmp_path / 'nested-repo'
+        (work / 'code').mkdir(parents=True)
+        def git(*args):
+            return subprocess.run(['git', '-C', str(work), *args], capture_output=True, check=True).stdout
+        git('init')
+        git('config', 'user.name', 'Researcher')
+        git('config', 'user.email', 'researcher@example.invalid')
+        (work / 'code/clean.py').write_text('print(1)\n')
+        git('add', 'code/clean.py')
+        git('commit', '-m', 'nested baseline')
+        (work / 'memory.md').write_text('Nested source provenance.')
+        (work / 'manifest.json').write_text(json.dumps({
+            'schema_version': 1, 'title': 'Nested source', 'summary': '', 'contributor': 'Alice',
+            'memory': 'memory.md', 'files': [{'source': 'code/clean.py', 'path': 'code/clean.py'}]}))
+        result = cli(service, work, 'publish', 'node', '--manifest', 'manifest.json', '--key', 'nested')
+        assert result.returncode == 0, result.stderr
+>       assert json.loads(result.stdout)['provenance'][0]['git'] == {
+            'commit': git('rev-parse', 'HEAD').decode().strip(), 'path': 'code/clean.py', 'state': 'clean'}
+E       AssertionError: assert {'commit': '3...: 'untracked'} == {'commit': '3...ate': 'clean'}
+E         
+E         Omitting 2 identical items, use -vv to show
+E         Differing items:
+E         {'state': 'untracked'} != {'state': 'clean'}
+E         Use -v to get more diff
+
+tests/test_boundaries.py:358: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_boundaries.py::test_provenance_tracks_nested_clean_files_against_correct_git_base
+1 failed, 1 warning in 0.84s
+
+2026-10-11T16:14:30.631912+00:00 GREEN ['tests/test_boundaries.py::test_provenance_tracks_nested_clean_files_against_correct_git_base'] exit=0
+.                                                                        [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 0.84s
+
+2026-10-11T16:14:31.178454+00:00 RED ['tests/test_boundaries.py::test_case_or_unicode_aliases_cannot_overwrite_downloaded_files_or_cross_projects'] exit=1
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_case_or_unicode_aliases_cannot_overwrite_downloaded_files_or_cross_projects _
+
+api = <starlette.testclient.TestClient object at 0x10b7470b0>
+tmp_path = PosixPath('/private/var/folders/8p/xslcv77s1h176z5yd1_drrzh0000gn/T/pytest-of-beiyanliu/pytest-51/test_case_or_unicode_aliases_c0')
+
+    def test_case_or_unicode_aliases_cannot_overwrite_downloaded_files_or_cross_projects(api, tmp_path):
+        from sharey.server import create_app
+        from test_nodes import bundle
+        metadata = {'schema_version': 1, 'title': 'Aliased paths', 'summary': '', 'contributor': 'Alice'}
+        for paths in ({'files/A': b'a', 'files/a': b'b'},
+                      {'files/A/x': b'a', 'files/a/y': b'b'},
+                      {'files/é': b'a', 'files/e\u0301': b'b'}):
+            response = publish(api, bundle(metadata, {'memory.md': b'memory', **paths}))
+>           assert response.status_code == 422
+E           assert 201 == 422
+E            +  where 201 = <Response [201 Created]>.status_code
+
+tests/test_boundaries.py:370: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_boundaries.py::test_case_or_unicode_aliases_cannot_overwrite_downloaded_files_or_cross_projects
+1 failed, 1 warning in 0.24s
+
+2026-10-11T16:14:59.674170+00:00 GREEN ['tests/test_boundaries.py::test_case_or_unicode_aliases_cannot_overwrite_downloaded_files_or_cross_projects'] exit=0
+.                                                                        [100%]
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Users/beiyanliu/Desktop/sharey/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 0.09s

@@ -1,0 +1,13 @@
+{
+  "projects": {
+    "pilot": {
+      "goal": "Compare pilot latency; separate arithmetic from inference.",
+      "token": "local-demo-token"
+    }
+  },
+  "limits": {
+    "max_upload_bytes": 16777216,
+    "max_unpacked_bytes": 16777216,
+    "max_entries": 1000
+  }
+}

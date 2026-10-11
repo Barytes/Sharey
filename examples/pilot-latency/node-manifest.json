@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "title": "Pilot measurements",
+  "summary": "Six fixed observations; summarize means and keep conclusions at pilot scale.",
+  "contributor": "Alice",
+  "memory": "memory.md",
+  "parents": [],
+  "sources": [],
+  "skills": [],
+  "files": [
+    {"source": "work/pilot.csv", "path": "pilot.csv"},
+    {"source": "work/config.json", "path": "config.json"},
+    {"source": "work/notes.md", "path": "notes.md"},
+    {"source": "work/analysis.py", "path": "analysis.py"}
+  ]
+}

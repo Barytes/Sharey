@@ -1,0 +1,7 @@
+trial,variant,latency_ms
+1,baseline,10
+2,baseline,12
+3,baseline,14
+1,candidate,8
+2,candidate,9
+3,candidate,10
